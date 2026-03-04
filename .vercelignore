@@ -1,0 +1,6 @@
+videos/
+.git/
+.claude/
+node_modules/
+*.md
+.vercel/

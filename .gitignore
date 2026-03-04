@@ -1,0 +1,4 @@
+.vercel
+videos/
+node_modules/
+.claude/

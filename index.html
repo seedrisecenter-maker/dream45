@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>꿈 꾸는 45도 | Dreaming 45°</title>
+    <meta name="description" content="동서양 명언을 4개국어로 담은 인스피레이셔널 굿즈 브랜드 - 꿈 꾸는 45도">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1B1464">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="꿈45°">
+    <link rel="apple-touch-icon" href="icons/icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;700;900&family=Noto+Sans+SC:wght@300;400;700&family=Noto+Sans+Devanagari:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-compass">&#9733;</span>
+                <span class="logo-text">꿈 꾸는 45°</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#why-dream" class="nav-link" data-i18n="nav.whyDream">왜 꿈을 꾸는가</a></li>
+                <li><a href="#philosophy" class="nav-link" data-i18n="nav.philosophy">철학 체계</a></li>
+                <li><a href="#life" class="nav-link" data-i18n="nav.life">인생에 대하여</a></li>
+                <li><a href="#gallery" class="nav-link" data-i18n="nav.gallery">명언 갤러리</a></li>
+                <li><a href="#translator" class="nav-link" data-i18n="nav.translator">4개국어 변환</a></li>
+                <li><a href="#goods" class="nav-link" data-i18n="nav.goods">굿즈 컬렉션</a></li>
+                <li><a href="#platforms" class="nav-link" data-i18n="nav.platforms">글로벌 플랫폼</a></li>
+                <li><a href="#youtube" class="nav-link">YouTube</a></li>
+                <li><a href="#lab" class="nav-link" data-i18n="nav.lab">연구소</a></li>
+                <li><a href="#" class="nav-link" id="openGameBtn" style="color:#FFD97D">별을 쏘아라</a></li>
+                <li><a href="#app-download" class="nav-link nav-app-btn" data-i18n="nav.appInstall">앱 설치</a></li>
+            </ul>
+            <!-- Language Switcher -->
+            <div class="lang-switcher" id="langSwitcher">
+                <button class="lang-current" id="langCurrent">
+                    <span class="lang-flag">🇰🇷</span>
+                    <span class="lang-name">한국어</span>
+                    <span class="lang-arrow">▾</span>
+                </button>
+                <ul class="lang-dropdown" id="langDropdown">
+                    <li data-lang="ko" class="active"><span>🇰🇷</span> 한국어</li>
+                    <li data-lang="en"><span>🇺🇸</span> English</li>
+                    <li data-lang="zh"><span>🇨🇳</span> 中文</li>
+                    <li data-lang="hi"><span>🇮🇳</span> हिन्दी</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== SECTION 1: HERO ========== -->
+    <section id="hero">
+        <div class="hero-bg">
+            <div class="stars" id="stars"></div>
+            <div class="hero-diagonal"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-compass">
+                <svg viewBox="0 0 100 100" class="compass-icon">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                    <line x1="50" y1="50" x2="78" y2="22" stroke="#FFD97D" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="50" cy="50" r="4" fill="#FFD97D"/>
+                    <text x="80" y="18" fill="rgba(255,255,255,0.6)" font-size="8">NE</text>
+                </svg>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line1">꿈 꾸는</span>
+                <span class="title-degree">45°</span>
+            </h1>
+            <p class="hero-tagline" data-i18n="hero.tagline">고개를 45도 들어 하늘을 바라보는 순간, 꿈은 시작된다.</p>
+            <p class="hero-sub">
+                <span class="lang-badge">한국어</span>
+                <span class="lang-badge">English</span>
+                <span class="lang-badge">中文</span>
+                <span class="lang-badge">हिन्दी</span>
+            </p>
+            <a href="#gallery" class="hero-cta" data-i18n="hero.cta">명언 탐험하기</a>
+        </div>
+        <div class="scroll-indicator">
+            <span class="scroll-arrow"></span>
+        </div>
+    </section>
+
+    <!-- ========== TODAY'S QUOTE (오늘의 명언) ========== -->
+    <section id="daily-quote">
+        <div class="daily-quote-container">
+            <div class="daily-quote-header">
+                <span class="daily-label">TODAY'S QUOTE</span>
+                <span class="daily-date" id="dailyDate"></span>
+            </div>
+            <div class="daily-quote-content" id="dailyQuoteContent">
+                <span class="daily-theme" id="dailyTheme"></span>
+                <span class="daily-number" id="dailyNumber"></span>
+                <blockquote class="daily-ko" id="dailyQuoteKo"></blockquote>
+                <p class="daily-en" id="dailyQuoteEn"></p>
+                <p class="daily-author" id="dailyAuthor"></p>
+                <button class="daily-share-btn" id="dailyShareBtn" aria-label="공유하기">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+                    오늘의 명언 공유
+                </button>
+            </div>
+            <p class="daily-refresh-note">매일 자정에 새로운 명언이 찾아옵니다</p>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 2: WHY DREAM? ========== -->
+    <section id="why-dream">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">왜 꿈을 꿔야 하는가?</h2>
+                <p class="section-desc">꿈이 없는 삶은 나침반 없는 항해와 같습니다</p>
+            </div>
+
+            <div class="why-dream-content">
+                <!-- 핵심 메시지 -->
+                <div class="dream-manifesto">
+                    <blockquote class="manifesto-quote">
+                        "사람은 꿈을 꿀 때 비로소 살아있다.<br>
+                        꿈은 우리에게 방향을 주고,<br>
+                        아침에 눈을 뜰 이유를 선물한다."
+                    </blockquote>
+                    <span class="manifesto-by">— 꿈 꾸는 45도 연구소</span>
+                </div>
+
+                <!-- 5가지 이유 카드 -->
+                <div class="dream-reasons">
+                    <div class="reason-card" data-reason="1">
+                        <div class="reason-icon">&#9733;</div>
+                        <h3>방향을 제시한다</h3>
+                        <p>꿈은 삶의 나침반입니다. 45도 위를 바라볼 때, 우리는 어디로 가야 할지 알게 됩니다. 목표 없는 하루는 방황이지만, 꿈이 있는 하루는 여정입니다.</p>
+                        <div class="reason-langs">
+                            <span class="reason-ko">방향</span>
+                            <span class="reason-en">Direction</span>
+                            <span class="reason-zh">方向</span>
+                            <span class="reason-hi">दिशा</span>
+                        </div>
+                    </div>
+                    <div class="reason-card" data-reason="2">
+                        <div class="reason-icon">&#9650;</div>
+                        <h3>한계를 넘게 한다</h3>
+                        <p>꿈은 우리가 스스로 정한 한계를 깨부수는 망치입니다. 불가능하다고 생각한 일도 꿈이 있으면 도전하게 되고, 도전하면 길이 열립니다.</p>
+                        <div class="reason-langs">
+                            <span class="reason-ko">돌파</span>
+                            <span class="reason-en">Breakthrough</span>
+                            <span class="reason-zh">突破</span>
+                            <span class="reason-hi">सफलता</span>
+                        </div>
+                    </div>
+                    <div class="reason-card" data-reason="3">
+                        <div class="reason-icon">&#9788;</div>
+                        <h3>어둠 속 빛이 된다</h3>
+                        <p>인생의 가장 어두운 밤에도 꿈은 별처럼 빛납니다. 실패와 좌절의 순간, 꿈은 다시 일어설 이유가 됩니다.</p>
+                        <div class="reason-langs">
+                            <span class="reason-ko">희망</span>
+                            <span class="reason-en">Hope</span>
+                            <span class="reason-zh">希望</span>
+                            <span class="reason-hi">आशा</span>
+                        </div>
+                    </div>
+                    <div class="reason-card" data-reason="4">
+                        <div class="reason-icon">&#9829;</div>
+                        <h3>사람을 연결한다</h3>
+                        <p>같은 꿈을 꾸는 사람들은 언어와 국경을 넘어 하나가 됩니다. 4개국어로 명언을 나누듯, 꿈은 세계를 잇는 다리입니다.</p>
+                        <div class="reason-langs">
+                            <span class="reason-ko">연결</span>
+                            <span class="reason-en">Connection</span>
+                            <span class="reason-zh">连接</span>
+                            <span class="reason-hi">जुड़ाव</span>
+                        </div>
+                    </div>
+                    <div class="reason-card" data-reason="5">
+                        <div class="reason-icon">&#10047;</div>
+                        <h3>유산을 남긴다</h3>
+                        <p>꿈꾸는 사람은 자신만을 위해 사는 것이 아닙니다. 당신의 꿈은 다음 세대에게 영감이 되고, 세상을 조금씩 바꾸는 씨앗이 됩니다.</p>
+                        <div class="reason-langs">
+                            <span class="reason-ko">유산</span>
+                            <span class="reason-en">Legacy</span>
+                            <span class="reason-zh">遗产</span>
+                            <span class="reason-hi">विरासत</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 인용 캐러셀 - 4개국어 -->
+                <div class="dream-global-voice">
+                    <h3 class="global-voice-title">세계인의 목소리</h3>
+                    <div class="voice-carousel" id="voiceCarousel">
+                        <div class="voice-slide active">
+                            <p class="voice-text">"꿈은 씨앗이다. 심지 않으면 꽃은 피지 않는다."</p>
+                            <span class="voice-lang">한국어</span>
+                        </div>
+                        <div class="voice-slide">
+                            <p class="voice-text">"A dream is a seed. Without planting, no flower blooms."</p>
+                            <span class="voice-lang">English</span>
+                        </div>
+                        <div class="voice-slide">
+                            <p class="voice-text">"梦想是种子。不播种，就不会开花。"</p>
+                            <span class="voice-lang">中文</span>
+                        </div>
+                        <div class="voice-slide">
+                            <p class="voice-text">"सपना एक बीज है। बोए बिना फूल नहीं खिलता।"</p>
+                            <span class="voice-lang">हिन्दी</span>
+                        </div>
+                    </div>
+                    <div class="voice-dots" id="voiceDots">
+                        <button class="voice-dot active" data-slide="0"></button>
+                        <button class="voice-dot" data-slide="1"></button>
+                        <button class="voice-dot" data-slide="2"></button>
+                        <button class="voice-dot" data-slide="3"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION: PHILOSOPHY FRAMEWORK ========== -->
+    <section id="philosophy">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">P</span>
+                <h2 class="section-title" data-i18n="phil.title">철학 체계</h2>
+                <p class="section-desc" data-i18n="phil.desc">개념 없는 직관은 맹목적이고, 직관 없는 개념은 공허하다 — 칸트</p>
+            </div>
+
+            <!-- 개념과 직관의 축 인트로 -->
+            <div class="phil-intro">
+                <div class="phil-intro-card">
+                    <div class="phil-axis">
+                        <div class="phil-axis-side concept">
+                            <h4 data-i18n="phil.conceptAxis">개념의 축 (Concept)</h4>
+                            <p data-i18n="phil.conceptAttr">추상적, 논리적, 보편적</p>
+                            <span class="phil-axis-role" data-i18n="phil.conceptRole">인생의 '지도' (Map)</span>
+                            <span class="phil-axis-tool" data-i18n="phil.conceptTool">논문, 법철학, 신뢰의 원칙</span>
+                            <span class="phil-axis-result" data-i18n="phil.conceptResult">지혜 (Wisdom)</span>
+                        </div>
+                        <div class="phil-axis-bridge">
+                            <span class="bridge-icon">&#9878;</span>
+                            <span data-i18n="phil.bridge">통합</span>
+                        </div>
+                        <div class="phil-axis-side intuition">
+                            <h4 data-i18n="phil.intuitionAxis">직관의 축 (Intuition)</h4>
+                            <p data-i18n="phil.intuitionAttr">구체적, 감각적, 개별적</p>
+                            <span class="phil-axis-role" data-i18n="phil.intuitionRole">인생의 '나침반' (Compass)</span>
+                            <span class="phil-axis-tool" data-i18n="phil.intuitionTool">명상, 몰입, 현장의 감각</span>
+                            <span class="phil-axis-result" data-i18n="phil.intuitionResult">자비/실천 (Action)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7개 탭 -->
+            <div class="phil-tabs" id="philTabs">
+                <button class="phil-tab active" data-tab="perspectives" data-i18n="phil.tab1">삶의 세 관점</button>
+                <button class="phil-tab" data-tab="directions" data-i18n="phil.tab2">세 방향성</button>
+                <button class="phil-tab" data-tab="philosophy" data-i18n="phil.tab3">철학</button>
+                <button class="phil-tab" data-tab="analysis" data-i18n="phil.tab4">분석 차원</button>
+                <button class="phil-tab" data-tab="humanities" data-i18n="phil.tab5">인문학</button>
+                <button class="phil-tab" data-tab="engines" data-i18n="phil.tab6">추상적 엔진</button>
+                <button class="phil-tab" data-tab="design" data-i18n="phil.tab7">설계 3단계</button>
+            </div>
+
+            <!-- 탭1: 삶의 세 관점 -->
+            <div class="phil-panel active" id="panel-perspectives">
+                <div class="phil-3col">
+                    <div class="phil-card phil-card-line">
+                        <div class="phil-card-icon">━</div>
+                        <h4 data-i18n="phil.line">선 (Line)</h4>
+                        <div class="phil-card-layers">
+                            <div class="phil-layer"><span class="layer-label" data-i18n="phil.abstract">추상</span><span data-i18n="phil.lineAbstract">생성과 흐름</span></div>
+                            <div class="phil-layer"><span class="layer-label" data-i18n="phil.philosophy">철학</span><span data-i18n="phil.linePhil">실존적 자유</span></div>
+                            <div class="phil-layer"><span class="layer-label" data-i18n="phil.humanities2">인문</span><span data-i18n="phil.lineHuman">결과보다 과정에 집중하라</span></div>
+                        </div>
+                    </div>
+                    <div class="phil-card phil-card-stage">
+                        <div class="phil-card-icon">&#127917;</div>
+                        <h4 data-i18n="phil.stage">무대 (Stage)</h4>
+                        <div class="phil-card-layers">
+                            <div class="phil-layer"><span class="layer-label" data-i18n="phil.abstract">추상</span><span data-i18n="phil.stageAbstract">역할과 페르소나</span></div>
+                            <div class="phil-layer"><span class="layer-label" data-i18n="phil.philosophy">철학</span><span data-i18n="phil.stagePhil">관계적 자아</span></div>
+                            <div class="phil-layer"><span class="layer-label" data-i18n="phil.humanities2">인문</span><span data-i18n="phil.stageHuman">고난과 자신을 동일시하지 말라</span></div>
+                        </div>
+                    </div>
+                    <div class="phil-card phil-card-web">
+                        <div class="phil-card-icon">&#128376;</div>
+                        <h4 data-i18n="phil.web">그물망 (Web)</h4>
+                        <div class="phil-card-layers">
+                            <div class="phil-layer"><span class="layer-label" data-i18n="phil.abstract">추상</span><span data-i18n="phil.webAbstract">연기(緣起)와 공존</span></div>
+                            <div class="phil-layer"><span class="layer-label" data-i18n="phil.philosophy">철학</span><span data-i18n="phil.webPhil">신뢰의 원칙</span></div>
+                            <div class="phil-layer"><span class="layer-label" data-i18n="phil.humanities2">인문</span><span data-i18n="phil.webHuman">모든 행위의 상호작용을 책임져라</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 탭2: 세 방향성 -->
+            <div class="phil-panel" id="panel-directions">
+                <div class="phil-3col">
+                    <div class="phil-card phil-card-trust">
+                        <div class="phil-card-icon">&#127801;</div>
+                        <h4 data-i18n="phil.trust">신뢰 (Trust)</h4>
+                        <p class="phil-meaning" data-i18n="phil.trustMeaning">관계의 구체적 설계도</p>
+                        <div class="phil-prince-link">
+                            <span data-i18n="phil.trustPrince">어린왕자의 장미 — 책임감</span>
+                        </div>
+                    </div>
+                    <div class="phil-card phil-card-time">
+                        <div class="phil-card-icon">&#128688;</div>
+                        <h4 data-i18n="phil.time">시간 (Time)</h4>
+                        <p class="phil-meaning" data-i18n="phil.timeMeaning">흐름을 칸막이로 만드는 의지</p>
+                        <div class="phil-prince-link">
+                            <span data-i18n="phil.timePrince">어린왕자의 우물 — 희망</span>
+                        </div>
+                    </div>
+                    <div class="phil-card phil-card-self">
+                        <div class="phil-card-icon">&#127873;</div>
+                        <h4 data-i18n="phil.self">자아 (Self)</h4>
+                        <p class="phil-meaning" data-i18n="phil.selfMeaning">서사로 빚어내는 삶의 방향</p>
+                        <div class="phil-prince-link">
+                            <span data-i18n="phil.selfPrince">어린왕자의 상자 — 잠재력</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 탭3: 철학 추상↔구체 -->
+            <div class="phil-panel" id="panel-philosophy">
+                <div class="phil-rows">
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.metaphysics">형이상학</h4>
+                        <div class="phil-dual"><span class="dual-theory" data-i18n="phil.metaTheory">존재의 근원 탐구</span><span class="dual-arrow">↔</span><span class="dual-practice" data-i18n="phil.metaPractice">자아 정체성 확립</span></div>
+                    </div>
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.epistemology">인식론</h4>
+                        <div class="phil-dual"><span class="dual-theory" data-i18n="phil.episTheory">진리의 조건 분석</span><span class="dual-arrow">↔</span><span class="dual-practice" data-i18n="phil.episPractice">가짜 뉴스와 정보의 선별</span></div>
+                    </div>
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.ethics">윤리학</h4>
+                        <div class="phil-dual"><span class="dual-theory" data-i18n="phil.ethicsTheory">도덕 법칙의 수립</span><span class="dual-arrow">↔</span><span class="dual-practice" data-i18n="phil.ethicsPractice">AI 윤리 가이드라인 제작</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 탭4: 분석 차원 -->
+            <div class="phil-panel" id="panel-analysis">
+                <div class="phil-rows">
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.politics">정치/사회</h4>
+                        <div class="phil-dual"><span class="dual-theory" data-i18n="phil.polTheory">사회계약설, 정의론</span><span class="dual-arrow">↔</span><span class="dual-practice" data-i18n="phil.polPractice">헌법, 투표권, 복지 제도</span></div>
+                    </div>
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.science">과학/기술</h4>
+                        <div class="phil-dual"><span class="dual-theory" data-i18n="phil.sciTheory">인식론, 논리학</span><span class="dual-arrow">↔</span><span class="dual-practice" data-i18n="phil.sciPractice">AI 알고리즘, 과학적 방법론</span></div>
+                    </div>
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.personal">개인/삶</h4>
+                        <div class="phil-dual"><span class="dual-theory" data-i18n="phil.perTheory">실존주의, 윤리학</span><span class="dual-arrow">↔</span><span class="dual-practice" data-i18n="phil.perPractice">가치 선택, 직업 윤리, 심리적 회복력</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 탭5: 인문학 -->
+            <div class="phil-panel" id="panel-humanities">
+                <div class="phil-rows">
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.literature">문학</h4>
+                        <div class="phil-dual"><span class="dual-theory" data-i18n="phil.litTheory">인간의 전형성, 상징</span><span class="dual-arrow">↔</span><span class="dual-practice" data-i18n="phil.litPractice">공감 능력 향상, 정서적 치유</span></div>
+                    </div>
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.history">사학</h4>
+                        <div class="phil-dual"><span class="dual-theory" data-i18n="phil.histTheory">시대정신, 역사의 흐름</span><span class="dual-arrow">↔</span><span class="dual-practice" data-i18n="phil.histPractice">현재 문제의 원인 파악 및 대안 제시</span></div>
+                    </div>
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.philStudy">철학</h4>
+                        <div class="phil-dual"><span class="dual-theory" data-i18n="phil.philTheory">존재론, 인식론</span><span class="dual-arrow">↔</span><span class="dual-practice" data-i18n="phil.philPractice">비판적 판단력, 윤리적 기준 설정</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 탭6: 추상적 엔진 -->
+            <div class="phil-panel" id="panel-engines">
+                <div class="phil-rows">
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.engTrust">신뢰 (Trust)</h4>
+                        <div class="phil-triple"><span class="triple-concept" data-i18n="phil.engTrustOut">자본, 계약, 협력</span><span class="triple-arrow">→</span><span class="triple-link" data-i18n="phil.engTrustLink">거래 비용 감소 및 사회적 자본 형성</span></div>
+                    </div>
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.engPurpose">목적 (Purpose)</h4>
+                        <div class="phil-triple"><span class="triple-concept" data-i18n="phil.engPurposeOut">선택, 포기, 전략</span><span class="triple-arrow">→</span><span class="triple-link" data-i18n="phil.engPurposeLink">우선순위 설정을 통한 에너지 효율화</span></div>
+                    </div>
+                    <div class="phil-row-card">
+                        <h4 data-i18n="phil.engLogic">논리 (Logic)</h4>
+                        <div class="phil-triple"><span class="triple-concept" data-i18n="phil.engLogicOut">문장, 논문, 수익</span><span class="triple-arrow">→</span><span class="triple-link" data-i18n="phil.engLogicLink">모호한 사고를 명확한 지식 자산으로 전환</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 탭7: 설계 3단계 -->
+            <div class="phil-panel" id="panel-design">
+                <div class="phil-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-badge">1</div>
+                        <div class="timeline-content">
+                            <h4 data-i18n="phil.design1Title">1단계: 인식</h4>
+                            <p class="timeline-module" data-i18n="phil.design1Module">직관과 개념의 통합</p>
+                            <p class="timeline-basis" data-i18n="phil.design1Basis">칸트의 '경험의 삼각형' · 불교의 '일심이문'</p>
+                            <p class="timeline-goal" data-i18n="phil.design1Goal">정보와 감각 속에서 나만의 논리적 언어를 추출하는 훈련</p>
+                        </div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-step">
+                        <div class="timeline-badge">2</div>
+                        <div class="timeline-content">
+                            <h4 data-i18n="phil.design2Title">2단계: 관계</h4>
+                            <p class="timeline-module" data-i18n="phil.design2Module">신뢰 시스템 구축</p>
+                            <p class="timeline-basis" data-i18n="phil.design2Basis">화엄경 '인드라망' · 사회학적 '무대' 비유</p>
+                            <p class="timeline-goal" data-i18n="phil.design2Goal">관계망을 이해하고 신뢰의 원칙을 자본으로 치환하는 방법론</p>
+                        </div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-step">
+                        <div class="timeline-badge">3</div>
+                        <div class="timeline-content">
+                            <h4 data-i18n="phil.design3Title">3단계: 실행</h4>
+                            <p class="timeline-module" data-i18n="phil.design3Module">융합적 가치 창출</p>
+                            <p class="timeline-basis" data-i18n="phil.design3Basis">들뢰즈의 '선' · 이중 나선 모델</p>
+                            <p class="timeline-goal" data-i18n="phil.design3Goal">추상적 가치관을 시간 계획과 성과로 변환하는 행동 강령</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION: ABOUT LIFE (인생에 대하여) ========== -->
+    <section id="life">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">L</span>
+                <h2 class="section-title" data-i18n="life.title">인생에 대하여</h2>
+                <p class="section-desc" data-i18n="life.desc">止觀으로 보는 인생의 구조 — 멈추고, 보고, 나누고, 함께 가는 것</p>
+            </div>
+
+            <!-- 뷰 전환 탭 -->
+            <div class="life-view-tabs" id="lifeViewTabs">
+                <button class="life-view-tab active" data-view="jigwan" data-i18n="life.viewJigwan">止觀人生圖</button>
+                <button class="life-view-tab" data-view="five-steps" data-i18n="life.viewFive">다섯 걸음</button>
+                <button class="life-view-tab" data-view="total" data-i18n="life.viewTotal">총체도</button>
+            </div>
+
+            <!-- 止觀人生圖 (5단계 원환도) -->
+            <div class="life-view active" id="view-jigwan">
+                <div class="life-subtitle" data-i18n="life.jigwanSub">苦에서 출발하여 止·觀을 거쳐 化로 나아가고, 마침내 和諍의 지혜로 회통하는 인생의 전체 구조</div>
+                <div class="jigwan-diagram" id="jigwanDiagram">
+                    <svg viewBox="0 0 600 600" class="jigwan-svg" id="jigwanSvg">
+                        <circle cx="300" cy="300" r="220" fill="none" stroke="rgba(200,190,180,0.3)" stroke-width="0.5"/>
+                        <circle cx="300" cy="300" r="160" fill="none" stroke="rgba(200,190,180,0.2)" stroke-width="0.5" stroke-dasharray="4 4"/>
+                        <circle cx="300" cy="300" r="45" fill="#faf8f5" stroke="#2c2c2c" stroke-width="1"/>
+                        <text x="300" y="296" text-anchor="middle" font-size="18" font-weight="600" fill="#1a1a1a" font-family="'Noto Sans KR',sans-serif">止觀</text>
+                        <text x="300" y="314" text-anchor="middle" font-size="10" fill="#8a7e72">人生의 原理</text>
+                        <!-- 5 phase nodes positioned by JS -->
+                    </svg>
+                </div>
+                <div class="jigwan-detail" id="jigwanDetail"></div>
+                <p class="jigwan-hint" id="jigwanHint" data-i18n="life.clickHint">각 마디를 클릭하면 상세 설명이 나타납니다</p>
+            </div>
+
+            <!-- 다섯 걸음 (보편적 인생도) -->
+            <div class="life-view" id="view-five-steps">
+                <div class="life-subtitle" data-i18n="life.fiveSub">아프고, 멈추고, 보고, 나누고, 함께 가는 것 — 이것이 인문학이고, 이것이 삶입니다</div>
+                <div class="five-steps-list" id="fiveStepsList">
+                    <!-- JS가 5단계 카드 생성 -->
+                </div>
+                <div class="five-steps-spiral">
+                    <p data-i18n="life.spiralMsg">다섯 걸음을 걸으면 다시 처음으로 돌아옵니다. 하지만 같은 자리가 아닙니다 — 조금 더 깊은 곳에서 다시 시작합니다.</p>
+                </div>
+            </div>
+
+            <!-- 총체도 (동심원) -->
+            <div class="life-view" id="view-total">
+                <div class="life-subtitle" data-i18n="life.totalSub">마음에서 세계까지 — 止觀이 관통하는 삶의 전체 구조</div>
+                <div class="total-diagram" id="totalDiagram">
+                    <svg viewBox="0 0 660 660" class="total-svg" id="totalSvg">
+                        <!-- 동심원 5개 레이어 — JS로 인터랙티브하게 생성 -->
+                        <circle cx="330" cy="330" r="30" fill="#FAFAF8" stroke="#2C3E50" stroke-width="1.5"/>
+                        <text x="330" y="326" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a1a" font-family="'Noto Sans KR',sans-serif">止觀</text>
+                        <text x="330" y="342" text-anchor="middle" font-size="8" fill="#999">원리</text>
+                    </svg>
+                </div>
+                <div class="total-detail" id="totalDetail"></div>
+                <div class="total-formula">
+                    <p class="formula-title" data-i18n="life.formulaTitle">止觀의 構造 公式</p>
+                    <div class="formula-content">
+                        <span class="formula-big">止 + 觀 = 멈추고 + 보는 것</span>
+                        <div class="formula-levels">
+                            <span data-i18n="life.formulaMind">마음에서 → 수행</span>
+                            <span data-i18n="life.formulaRelation">관계에서 → 공감</span>
+                            <span data-i18n="life.formulaCommunity">공동체에서 → 변화</span>
+                            <span data-i18n="life.formulaWorld">세계에서 → 평화</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 3: QUOTE GALLERY ========== -->
+    <section id="gallery">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">명언 갤러리</h2>
+                <p class="section-desc">동서양 위인들이 남긴 꿈, 도전, 희망, 용기의 명언 10선</p>
+            </div>
+
+            <div class="filter-bar" id="filterBar">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="dream">꿈 Dream</button>
+                <button class="filter-btn" data-filter="challenge">도전 Challenge</button>
+                <button class="filter-btn" data-filter="hope">희망 Hope</button>
+                <button class="filter-btn" data-filter="courage">용기 Courage</button>
+            </div>
+
+            <div class="quote-grid" id="quoteGrid">
+                <!-- JS가 명언 카드 10개를 동적 생성 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== QUOTE DETAIL MODAL ========== -->
+    <div class="modal-overlay" id="quoteModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-header">
+                <span class="modal-number" id="modalNumber"></span>
+                <span class="modal-theme" id="modalTheme"></span>
+            </div>
+            <div class="modal-author" id="modalAuthor"></div>
+            <div class="modal-translations">
+                <div class="modal-lang-card" data-lang="ko">
+                    <span class="lang-label">한국어</span>
+                    <p class="lang-quote" id="modalKo"></p>
+                    <button class="copy-btn" data-target="modalKo" title="복사">&#128203;</button>
+                </div>
+                <div class="modal-lang-card" data-lang="en">
+                    <span class="lang-label">English</span>
+                    <p class="lang-quote" id="modalEn"></p>
+                    <button class="copy-btn" data-target="modalEn" title="Copy">&#128203;</button>
+                </div>
+                <div class="modal-lang-card" data-lang="zh">
+                    <span class="lang-label">中文</span>
+                    <p class="lang-quote" id="modalZh"></p>
+                    <button class="copy-btn" data-target="modalZh" title="复制">&#128203;</button>
+                </div>
+                <div class="modal-lang-card" data-lang="hi">
+                    <span class="lang-label">हिन्दी</span>
+                    <p class="lang-quote" id="modalHi"></p>
+                    <button class="copy-btn" data-target="modalHi" title="कॉपी">&#128203;</button>
+                </div>
+            </div>
+            <div class="modal-bio" id="modalBio"></div>
+        </div>
+    </div>
+
+    <!-- ========== SECTION 4: TRANSLATOR ========== -->
+    <section id="translator">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">4개국어 변환기</h2>
+                <p class="section-desc">명언을 선택하면 4개 언어로 변환됩니다</p>
+            </div>
+
+            <div class="translator-box">
+                <div class="translator-select-wrap">
+                    <label for="quoteSelect">명언 선택</label>
+                    <select id="quoteSelect">
+                        <option value="">-- 명언을 선택하세요 --</option>
+                        <!-- JS가 옵션 동적 생성 -->
+                    </select>
+                </div>
+
+                <div class="translator-panels" id="translatorPanels">
+                    <div class="trans-panel panel-ko">
+                        <div class="panel-header">
+                            <span class="panel-flag">🇰🇷</span>
+                            <span class="panel-lang">한국어</span>
+                            <button class="copy-btn panel-copy" data-target="transKo">&#128203;</button>
+                        </div>
+                        <p class="panel-text" id="transKo">명언을 선택해주세요...</p>
+                    </div>
+                    <div class="trans-panel panel-en">
+                        <div class="panel-header">
+                            <span class="panel-flag">🇺🇸</span>
+                            <span class="panel-lang">English</span>
+                            <button class="copy-btn panel-copy" data-target="transEn">&#128203;</button>
+                        </div>
+                        <p class="panel-text" id="transEn">Select a quote...</p>
+                    </div>
+                    <div class="trans-panel panel-zh">
+                        <div class="panel-header">
+                            <span class="panel-flag">🇨🇳</span>
+                            <span class="panel-lang">中文</span>
+                            <button class="copy-btn panel-copy" data-target="transZh">&#128203;</button>
+                        </div>
+                        <p class="panel-text" id="transZh">请选择名言...</p>
+                    </div>
+                    <div class="trans-panel panel-hi">
+                        <div class="panel-header">
+                            <span class="panel-flag">🇮🇳</span>
+                            <span class="panel-lang">हिन्दी</span>
+                            <button class="copy-btn panel-copy" data-target="transHi">&#128203;</button>
+                        </div>
+                        <p class="panel-text" id="transHi">कृपया एक उद्धरण चुनें...</p>
+                    </div>
+                </div>
+
+                <div class="translator-author" id="translatorAuthor"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 4: GOODS ========== -->
+    <section id="goods">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">굿즈 컬렉션</h2>
+                <p class="section-desc">45도의 감성을 담은 6종 굿즈 라인업</p>
+            </div>
+
+            <div class="goods-grid">
+                <!-- Poster -->
+                <div class="goods-card" data-aos="fade-up">
+                    <div class="goods-mockup mockup-poster">
+                        <div class="poster-inner">
+                            <div class="poster-diagonal"></div>
+                            <p class="poster-quote">모든 위대한 꿈은<br>꿈꾸는 자로부터<br>시작된다.</p>
+                            <span class="poster-author">— Harriet Tubman</span>
+                            <span class="poster-logo">꿈 꾸는 45°</span>
+                        </div>
+                    </div>
+                    <h3 class="goods-name">포스터 시리즈</h3>
+                    <p class="goods-desc">A3/A2 사이즈 | 10종 | 테마별 컬러</p>
+                </div>
+
+                <!-- Postcard -->
+                <div class="goods-card" data-aos="fade-up">
+                    <div class="goods-mockup mockup-postcard">
+                        <div class="postcard-inner">
+                            <p class="postcard-quote">Fall seven times,<br>stand up eight.</p>
+                            <div class="postcard-corner"></div>
+                        </div>
+                    </div>
+                    <h3 class="goods-name">엽서 세트</h3>
+                    <p class="goods-desc">10장 1세트 | 45도 모서리 커팅</p>
+                </div>
+
+                <!-- Mug -->
+                <div class="goods-card" data-aos="fade-up">
+                    <div class="goods-mockup mockup-mug">
+                        <div class="mug-body">
+                            <div class="mug-text">
+                                <span class="mug-ko">천 리 길도<br>한 걸음부터</span>
+                            </div>
+                            <div class="mug-handle"></div>
+                        </div>
+                    </div>
+                    <h3 class="goods-name">머그컵</h3>
+                    <p class="goods-desc">도자기 350ml | 5종 | 바닥 서프라이즈</p>
+                </div>
+
+                <!-- Notebook -->
+                <div class="goods-card" data-aos="fade-up">
+                    <div class="goods-mockup mockup-notebook">
+                        <div class="notebook-inner">
+                            <div class="notebook-diagonal"></div>
+                            <p class="notebook-quote">미래는 자신의 꿈이<br>아름답다고 믿는<br>사람의 것이다.</p>
+                            <div class="notebook-lines"></div>
+                        </div>
+                    </div>
+                    <h3 class="goods-name">노트 / 다이어리</h3>
+                    <p class="goods-desc">B5 | 45도 대각선 표지 | 북마크 카드</p>
+                </div>
+
+                <!-- Eco Bag -->
+                <div class="goods-card" data-aos="fade-up">
+                    <div class="goods-mockup mockup-ecobag">
+                        <div class="ecobag-inner">
+                            <div class="ecobag-strap-left"></div>
+                            <div class="ecobag-strap-right"></div>
+                            <div class="ecobag-text">
+                                <span>모든 위대한 꿈은</span>
+                                <span>Every great dream</span>
+                                <span>每一个伟大的梦想</span>
+                                <span>हर महान सपने की</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="goods-name">에코백</h3>
+                    <p class="goods-desc">캔버스 | 4개국어 세로 배치</p>
+                </div>
+
+                <!-- Sticker -->
+                <div class="goods-card" data-aos="fade-up">
+                    <div class="goods-mockup mockup-sticker">
+                        <div class="sticker-pack">
+                            <div class="sticker s1">Dream</div>
+                            <div class="sticker s2">45°</div>
+                            <div class="sticker s3">&#9733;</div>
+                            <div class="sticker s4">꿈</div>
+                        </div>
+                    </div>
+                    <h3 class="goods-name">스티커 팩</h3>
+                    <p class="goods-desc">다이컷 20매 | 다양한 형태</p>
+                </div>
+            </div>
+
+            <!-- Package Section -->
+            <div class="package-section">
+                <h3 class="package-title">패키지 구성</h3>
+                <div class="package-grid">
+                    <div class="package-card starter">
+                        <div class="package-badge">Starter</div>
+                        <h4>꿈 꾸는 45도 스타터 키트</h4>
+                        <ul>
+                            <li>A3 포스터 2장</li>
+                            <li>엽서 세트 10장</li>
+                            <li>머그컵 1개</li>
+                            <li>스티커 팩 1세트</li>
+                            <li>북마크 카드 2장</li>
+                        </ul>
+                    </div>
+                    <div class="package-card premium">
+                        <div class="package-badge">Premium</div>
+                        <h4>별을 향하여 프리미엄 세트</h4>
+                        <ul>
+                            <li>B5 노트 1권</li>
+                            <li>에코백 1개</li>
+                            <li>머그컵 1개</li>
+                            <li>A2 포스터 1장</li>
+                            <li>엽서 세트 10장</li>
+                            <li>스티커 팩 1세트</li>
+                            <li>특별 봉투 1장</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 5: PLATFORMS ========== -->
+    <section id="platforms">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">05</span>
+                <h2 class="section-title">글로벌 플랫폼 가이드</h2>
+                <p class="section-desc">꿈 꾸는 45도를 세계에 알릴 최적의 플랫폼</p>
+            </div>
+
+            <div class="market-stats">
+                <div class="stat-card">
+                    <span class="stat-value">$1.2T</span>
+                    <span class="stat-label">글로벌 소셜커머스</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">$500B+</span>
+                    <span class="stat-label">인도 이커머스</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">27.2%</span>
+                    <span class="stat-label">중국 POD 성장률</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">$30B+</span>
+                    <span class="stat-label">TikTok Shop 매출</span>
+                </div>
+            </div>
+
+            <div class="platform-regions" id="platformRegions">
+                <!-- JS가 5개 지역 카드 동적 생성 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 7: YOUTUBE CHANNEL ========== -->
+    <section id="youtube">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">06</span>
+                <h2 class="section-title">YouTube 채널</h2>
+                <p class="section-desc">꿈 꾸는 45도의 영상으로 만나는 영감의 순간들</p>
+            </div>
+
+            <div class="youtube-content">
+                <!-- 채널 소개 -->
+                <div class="yt-channel-intro">
+                    <div class="yt-logo">
+                        <svg viewBox="0 0 120 85" class="yt-play-icon">
+                            <rect rx="15" ry="15" width="120" height="85" fill="#FF0000"/>
+                            <polygon points="48,17 48,68 92,42" fill="#FFF"/>
+                        </svg>
+                    </div>
+                    <h3 class="yt-channel-name">꿈 꾸는 45도 TV</h3>
+                    <p class="yt-channel-desc">
+                        왜 꿈을 꿔야 하는지, 삶에 대한 연구를 영상으로 제작하여 확산합니다.<br>
+                        4개국어 자막과 함께 전 세계 시청자에게 꿈꾸는 삶의 가치를 전합니다.
+                    </p>
+                    <a href="https://www.youtube.com/@%EC%9D%B4%EC%84%9C%EB%A0%A8-t6q" target="_blank" rel="noopener noreferrer" class="yt-subscribe-btn" id="ytSubscribeBtn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 4-8 4z"/>
+                        </svg>
+                        채널 구독하기
+                    </a>
+                </div>
+
+                <!-- 영상 시리즈 기획 -->
+                <div class="yt-series-grid">
+                    <div class="yt-series-card">
+                        <div class="yt-thumb yt-thumb-1">
+                            <div class="yt-thumb-overlay">
+                                <span class="yt-play-small">&#9654;</span>
+                            </div>
+                            <div class="yt-thumb-text">
+                                <span class="yt-series-tag">시리즈 01</span>
+                                <span class="yt-series-title-inner">명언의 탄생</span>
+                            </div>
+                        </div>
+                        <h4 class="yt-series-name">명언의 탄생 이야기</h4>
+                        <p class="yt-series-desc">각 명언이 탄생한 배경과 역사적 맥락을 감성적 영상으로 풀어냅니다. 위인의 삶을 따라가며 명언의 진정한 무게를 느껴보세요.</p>
+                        <div class="yt-series-meta">
+                            <span>10편 기획</span>
+                            <span>매주 월요일</span>
+                        </div>
+                    </div>
+
+                    <div class="yt-series-card">
+                        <div class="yt-thumb yt-thumb-2">
+                            <div class="yt-thumb-overlay">
+                                <span class="yt-play-small">&#9654;</span>
+                            </div>
+                            <div class="yt-thumb-text">
+                                <span class="yt-series-tag">시리즈 02</span>
+                                <span class="yt-series-title-inner">4개국어 낭독</span>
+                            </div>
+                        </div>
+                        <h4 class="yt-series-name">4개국어 명언 낭독</h4>
+                        <p class="yt-series-desc">한국어, 영어, 중국어, 힌디어 네이티브 스피커가 명언을 낭독합니다. ASMR 감성과 아름다운 타이포그래피 영상.</p>
+                        <div class="yt-series-meta">
+                            <span>10편 기획</span>
+                            <span>매주 수요일</span>
+                        </div>
+                    </div>
+
+                    <div class="yt-series-card">
+                        <div class="yt-thumb yt-thumb-3">
+                            <div class="yt-thumb-overlay">
+                                <span class="yt-play-small">&#9654;</span>
+                            </div>
+                            <div class="yt-thumb-text">
+                                <span class="yt-series-tag">시리즈 03</span>
+                                <span class="yt-series-title-inner">꿈 인터뷰</span>
+                            </div>
+                        </div>
+                        <h4 class="yt-series-name">당신의 꿈은 무엇인가요?</h4>
+                        <p class="yt-series-desc">전 세계 다양한 사람들에게 묻습니다 — "당신의 꿈은 무엇인가요?" 거리 인터뷰, 온라인 참여로 진짜 꿈의 이야기를 담습니다.</p>
+                        <div class="yt-series-meta">
+                            <span>시즌제</span>
+                            <span>매주 금요일</span>
+                        </div>
+                    </div>
+
+                    <div class="yt-series-card">
+                        <div class="yt-thumb yt-thumb-4">
+                            <div class="yt-thumb-overlay">
+                                <span class="yt-play-small">&#9654;</span>
+                            </div>
+                            <div class="yt-thumb-text">
+                                <span class="yt-series-tag">Shorts</span>
+                                <span class="yt-series-title-inner">45초 영감</span>
+                            </div>
+                        </div>
+                        <h4 class="yt-series-name">45초 영감 Shorts</h4>
+                        <p class="yt-series-desc">45초 안에 담는 명언 + 모션그래픽. 숏폼 콘텐츠로 빠르게 영감을 전달하고 TikTok/Instagram Reels로도 동시 확산.</p>
+                        <div class="yt-series-meta">
+                            <span>매일 업로드</span>
+                            <span>45초 숏폼</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 확산 전략 -->
+                <div class="yt-strategy">
+                    <h3 class="yt-strategy-title">확산 전략</h3>
+                    <div class="yt-strategy-items">
+                        <div class="yt-strat-item">
+                            <span class="yt-strat-icon">&#127760;</span>
+                            <h4>다국어 자막</h4>
+                            <p>모든 영상에 한/영/중/힌디 4개 국어 자막 제공</p>
+                        </div>
+                        <div class="yt-strat-item">
+                            <span class="yt-strat-icon">&#128247;</span>
+                            <h4>크로스 플랫폼</h4>
+                            <p>YouTube + TikTok + Instagram Reels 동시 배포</p>
+                        </div>
+                        <div class="yt-strat-item">
+                            <span class="yt-strat-icon">&#129309;</span>
+                            <h4>커뮤니티 참여</h4>
+                            <p>시청자 꿈 사연 모집, 댓글 명언 채택, 굿즈 이벤트</p>
+                        </div>
+                        <div class="yt-strat-item">
+                            <span class="yt-strat-icon">&#128200;</span>
+                            <h4>SEO 최적화</h4>
+                            <p>명언 키워드 + 4개 국어 태그로 글로벌 검색 노출</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION 8: RESEARCH LAB ========== -->
+    <section id="lab">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">07</span>
+                <h2 class="section-title">꿈 꾸는 45도 연구소</h2>
+                <p class="section-desc">지구촌 모든 언어로 꿈을 전하고, 가장 효과적인 확산 경로를 연구합니다</p>
+            </div>
+
+            <!-- 연구소 미션 -->
+            <div class="lab-mission">
+                <div class="lab-mission-icon">
+                    <svg viewBox="0 0 100 100" width="90" height="90">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#C5B4E3" stroke-width="1.5"/>
+                        <line x1="50" y1="50" x2="78" y2="22" stroke="#FFD97D" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="50" cy="50" r="3" fill="#FFD97D"/>
+                    </svg>
+                </div>
+                <blockquote class="lab-mission-text">
+                    "지구촌 모든 분야의 언어를 통해<br>
+                    사람들이 꿈을 꿀 수 있도록<br>
+                    꾸준한 연구를 지속하고,<br>
+                    확산이 잘되는 곳들을 연구해서 반영한다.<br><br>
+                    모든 추상을 통해 삶을 구체화할 수 있는<br>
+                    방법론을 꾸준히 찾아 반영하고 확산하며,<br>
+                    지구 안밖의 모든 존재의<br>
+                    자유와 평화를 돕는다.<br><br>
+                    모든 것은 걸림없이<br>
+                    항상 연구되고 실천되어야 한다."
+                </blockquote>
+                <span class="lab-mission-by">— 꿈 꾸는 45도 연구소 헌장</span>
+            </div>
+
+            <!-- 2개 연구 분야 -->
+            <div class="lab-two-pillars">
+                <!-- 연구 1: 세계 언어 연구 -->
+                <div class="lab-pillar">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">&#127760;</span>
+                        <h3>세계 언어 연구</h3>
+                        <p class="pillar-subtitle">모든 언어로 꿈을 전하다</p>
+                    </div>
+                    <p class="pillar-desc">
+                        우리 연구소는 4개국어(한/영/중/힌디)에서 시작하여 지구촌 모든 언어로 꿈의 메시지를 확장합니다.
+                        각 문화권의 고유한 꿈과 지혜를 발굴하고, 그 언어만의 뉘앙스를 살려 번역합니다.
+                    </p>
+
+                    <!-- 언어 확장 로드맵 -->
+                    <div class="lang-roadmap">
+                        <div class="roadmap-phase current">
+                            <div class="phase-badge">현재</div>
+                            <h4>Phase 1 — 4개국어</h4>
+                            <div class="phase-langs">
+                                <span class="phase-lang active">한국어</span>
+                                <span class="phase-lang active">English</span>
+                                <span class="phase-lang active">中文</span>
+                                <span class="phase-lang active">हिन्दी</span>
+                            </div>
+                        </div>
+                        <div class="roadmap-arrow">&#10132;</div>
+                        <div class="roadmap-phase next">
+                            <div class="phase-badge">2단계</div>
+                            <h4>Phase 2 — 12개국어</h4>
+                            <div class="phase-langs">
+                                <span class="phase-lang">Espanol</span>
+                                <span class="phase-lang">Francais</span>
+                                <span class="phase-lang">العربية</span>
+                                <span class="phase-lang">Portugues</span>
+                                <span class="phase-lang">日本語</span>
+                                <span class="phase-lang">Deutsch</span>
+                                <span class="phase-lang">Русский</span>
+                                <span class="phase-lang">Bahasa</span>
+                            </div>
+                        </div>
+                        <div class="roadmap-arrow">&#10132;</div>
+                        <div class="roadmap-phase future">
+                            <div class="phase-badge">비전</div>
+                            <h4>Phase 3 — 50+개 언어</h4>
+                            <div class="phase-langs">
+                                <span class="phase-lang">Swahili</span>
+                                <span class="phase-lang">Thai</span>
+                                <span class="phase-lang">Tieng Viet</span>
+                                <span class="phase-lang">Turkce</span>
+                                <span class="phase-lang">&#43;40</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 문화권 연구 영역 -->
+                    <div class="culture-research">
+                        <h4>문화권별 연구 영역</h4>
+                        <div class="culture-grid">
+                            <div class="culture-card">
+                                <span class="culture-emoji">&#127759;</span>
+                                <strong>아프리카</strong>
+                                <p>Ubuntu 정신, 구전 지혜, 부족 격언</p>
+                            </div>
+                            <div class="culture-card">
+                                <span class="culture-emoji">&#127964;</span>
+                                <strong>중동</strong>
+                                <p>수피 시인, 이슬람 지혜, 페르시아 문학</p>
+                            </div>
+                            <div class="culture-card">
+                                <span class="culture-emoji">&#127795;</span>
+                                <strong>남미</strong>
+                                <p>마야/잉카 지혜, 라틴 문학, 해방 철학</p>
+                            </div>
+                            <div class="culture-card">
+                                <span class="culture-emoji">&#9968;</span>
+                                <strong>북유럽</strong>
+                                <p>바이킹 격언, 핀란드 시수, 스칸디 철학</p>
+                            </div>
+                            <div class="culture-card">
+                                <span class="culture-emoji">&#127887;</span>
+                                <strong>동남아</strong>
+                                <p>불교 지혜, 힌두 철학, 전통 격언</p>
+                            </div>
+                            <div class="culture-card">
+                                <span class="culture-emoji">&#127956;</span>
+                                <strong>오세아니아</strong>
+                                <p>원주민 드림타임, 마오리 지혜, 태평양 전통</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 연구 2: 확산 채널 연구 -->
+                <div class="lab-pillar">
+                    <div class="pillar-header">
+                        <span class="pillar-icon">&#128640;</span>
+                        <h3>확산 채널 연구</h3>
+                        <p class="pillar-subtitle">꿈이 가장 잘 퍼지는 길을 찾다</p>
+                    </div>
+                    <p class="pillar-desc">
+                        아무리 좋은 명언도 사람들에게 닿지 않으면 의미가 없습니다.
+                        우리는 꿈의 메시지가 가장 효과적으로 확산되는 채널과 방법을 끊임없이 연구하고, 그 결과를 즉시 반영합니다.
+                    </p>
+
+                    <!-- 확산 연구 영역 -->
+                    <div class="spread-research">
+                        <div class="spread-item">
+                            <div class="spread-header">
+                                <span class="spread-icon">&#128202;</span>
+                                <h4>플랫폼 성과 분석</h4>
+                            </div>
+                            <p>어떤 플랫폼에서 어떤 언어의 명언이 가장 많이 공유되는지 데이터 기반 분석</p>
+                            <div class="spread-tags">
+                                <span>조회수 추적</span>
+                                <span>공유율 분석</span>
+                                <span>국가별 반응</span>
+                            </div>
+                        </div>
+                        <div class="spread-item">
+                            <div class="spread-header">
+                                <span class="spread-icon">&#128161;</span>
+                                <h4>콘텐츠 포맷 실험</h4>
+                            </div>
+                            <p>영상, 이미지, 오디오, 텍스트 중 어떤 포맷이 꿈의 메시지를 가장 잘 전달하는지 A/B 테스트</p>
+                            <div class="spread-tags">
+                                <span>숏폼 vs 롱폼</span>
+                                <span>카드뉴스 vs 영상</span>
+                                <span>ASMR 낭독</span>
+                            </div>
+                        </div>
+                        <div class="spread-item">
+                            <div class="spread-header">
+                                <span class="spread-icon">&#127758;</span>
+                                <h4>신규 채널 발굴</h4>
+                            </div>
+                            <p>각 국가에서 떠오르는 새로운 플랫폼과 커뮤니티를 조기 발견하고 진입</p>
+                            <div class="spread-tags">
+                                <span>신흥 SNS</span>
+                                <span>로컬 커뮤니티</span>
+                                <span>교육 플랫폼</span>
+                            </div>
+                        </div>
+                        <div class="spread-item">
+                            <div class="spread-header">
+                                <span class="spread-icon">&#129309;</span>
+                                <h4>파트너십 연구</h4>
+                            </div>
+                            <p>학교, NGO, 기업, 인플루언서 등과의 협업을 통한 확산 효과 연구</p>
+                            <div class="spread-tags">
+                                <span>교육기관</span>
+                                <span>글로벌 NGO</span>
+                                <span>크리에이터</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 연구 사이클 -->
+                    <div class="research-cycle">
+                        <h4>연구 &rarr; 반영 사이클</h4>
+                        <div class="cycle-steps">
+                            <div class="cycle-step">
+                                <div class="cycle-num">1</div>
+                                <span>발견</span>
+                                <p>새로운 채널/트렌드 발견</p>
+                            </div>
+                            <div class="cycle-arrow">&rarr;</div>
+                            <div class="cycle-step">
+                                <div class="cycle-num">2</div>
+                                <span>실험</span>
+                                <p>소규모 테스트 진행</p>
+                            </div>
+                            <div class="cycle-arrow">&rarr;</div>
+                            <div class="cycle-step">
+                                <div class="cycle-num">3</div>
+                                <span>분석</span>
+                                <p>데이터 기반 평가</p>
+                            </div>
+                            <div class="cycle-arrow">&rarr;</div>
+                            <div class="cycle-step">
+                                <div class="cycle-num">4</div>
+                                <span>반영</span>
+                                <p>사이트/굿즈에 즉시 적용</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 뉴스레터 -->
+            <div class="lab-newsletter">
+                <h3>연구소 소식 받기</h3>
+                <p>새로운 언어 추가, 명언 업데이트, 확산 채널 소식을 가장 먼저 받아보세요</p>
+                <div class="newsletter-form">
+                    <div class="newsletter-input-group">
+                        <input type="email" placeholder="your@email.com" class="newsletter-input" id="newsletterEmail">
+                        <button class="newsletter-btn" id="newsletterBtn">구독</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION: APP DOWNLOAD ========== -->
+    <section id="app-download">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">08</span>
+                <h2 class="section-title">앱 설치</h2>
+                <p class="section-desc">홈 화면에 추가하면 언제든 꿈 꾸는 45도를 만날 수 있어요</p>
+            </div>
+
+            <div class="app-dl-content">
+                <!-- 앱 프리뷰 -->
+                <div class="app-preview">
+                    <div class="phone-mockup">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <div class="phone-screen-bg">
+                                <div class="phone-app-icon">
+                                    <svg viewBox="0 0 100 100">
+                                        <rect width="100" height="100" rx="20" fill="#0D1B2A"/>
+                                        <circle cx="50" cy="42" r="25" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                                        <line x1="50" y1="42" x2="68" y2="24" stroke="#FFD97D" stroke-width="2" stroke-linecap="round"/>
+                                        <circle cx="50" cy="42" r="3" fill="#FFD97D"/>
+                                        <text x="50" y="82" text-anchor="middle" fill="#F8F4E8" font-size="10" font-weight="900">꿈45°</text>
+                                    </svg>
+                                </div>
+                                <p class="phone-app-label">꿈 꾸는 45°</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-features">
+                        <div class="app-feature app-feature-highlight">
+                            <span class="app-feature-icon">&#127775;</span>
+                            <div>
+                                <strong>어린왕자의 세 가지 선물</strong>
+                                <p>매일 2회 — 우물(희망), 장미(책임감), 상자(잠재력) 중 하나가 도착합니다</p>
+                            </div>
+                        </div>
+                        <div class="app-feature">
+                            <span class="app-feature-icon">&#9889;</span>
+                            <div>
+                                <strong>빠른 실행</strong>
+                                <p>홈 화면에서 터치 한번으로 바로 실행</p>
+                            </div>
+                        </div>
+                        <div class="app-feature">
+                            <span class="app-feature-icon">&#128247;</span>
+                            <div>
+                                <strong>전체 화면</strong>
+                                <p>브라우저 주소창 없이 앱처럼 보기</p>
+                            </div>
+                        </div>
+                        <div class="app-feature">
+                            <span class="app-feature-icon">&#128268;</span>
+                            <div>
+                                <strong>오프라인 지원</strong>
+                                <p>인터넷 없이도 명언 열람 가능</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 설치 가이드 탭 -->
+                <div class="install-guide">
+                    <div class="install-tabs">
+                        <button class="install-tab active" data-tab="android">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.523 2.34l1.636-1.636a.5.5 0 00-.707-.707L16.707 1.74A7.45 7.45 0 0012 0a7.45 7.45 0 00-4.707 1.74L5.548-.004a.5.5 0 00-.707.707L6.477 2.34A7.474 7.474 0 004.5 7.5v.5h15v-.5a7.474 7.474 0 00-1.977-5.16zM9 5.5a1 1 0 110-2 1 1 0 010 2zm6 0a1 1 0 110-2 1 1 0 010 2zM4.5 9v9a2 2 0 002 2h1V23a1.5 1.5 0 003 0v-3h3v3a1.5 1.5 0 003 0v-3h1a2 2 0 002-2V9h-15zM2 9a1.5 1.5 0 00-1.5 1.5v6A1.5 1.5 0 002 18a1.5 1.5 0 001.5-1.5v-6A1.5 1.5 0 002 9zm20 0a1.5 1.5 0 00-1.5 1.5v6A1.5 1.5 0 0022 18a1.5 1.5 0 001.5-1.5v-6A1.5 1.5 0 0022 9z"/></svg>
+                            Android
+                        </button>
+                        <button class="install-tab" data-tab="ios">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            iPhone
+                        </button>
+                    </div>
+
+                    <!-- Android 가이드 -->
+                    <div class="install-panel active" id="panel-android">
+                        <div class="install-steps">
+                            <div class="install-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <div class="step-visual">
+                                        <div class="step-browser-bar">
+                                            <span class="step-url">dream45.vercel.app</span>
+                                            <span class="step-menu-icon">&#8942;</span>
+                                        </div>
+                                    </div>
+                                    <h4>Chrome으로 사이트 접속</h4>
+                                    <p><strong>dream45.vercel.app</strong> 주소를 Chrome에서 열어주세요</p>
+                                </div>
+                            </div>
+                            <div class="install-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <div class="step-visual">
+                                        <div class="step-install-banner">
+                                            <span class="step-banner-icon">
+                                                <svg viewBox="0 0 100 100" width="28" height="28">
+                                                    <rect width="100" height="100" rx="20" fill="#0D1B2A"/>
+                                                    <circle cx="50" cy="42" r="18" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                                                    <line x1="50" y1="42" x2="63" y2="29" stroke="#FFD97D" stroke-width="2.5" stroke-linecap="round"/>
+                                                    <circle cx="50" cy="42" r="3" fill="#FFD97D"/>
+                                                    <text x="50" y="82" text-anchor="middle" fill="#F8F4E8" font-size="13" font-weight="900">45°</text>
+                                                </svg>
+                                            </span>
+                                            <span class="step-banner-text">앱 설치</span>
+                                            <span class="step-banner-btn">설치</span>
+                                        </div>
+                                    </div>
+                                    <h4>"앱 설치" 배너 터치</h4>
+                                    <p>하단에 나타나는 <strong>설치</strong> 배너를 터치하세요.<br>배너가 안 보이면 우측 상단 <strong>&#8942; &gt; 앱 설치</strong>를 선택하세요</p>
+                                </div>
+                            </div>
+                            <div class="install-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <div class="step-visual">
+                                        <div class="step-home-screen">
+                                            <div class="step-app-icon-small">
+                                                <svg viewBox="0 0 100 100" width="40" height="40">
+                                                    <rect width="100" height="100" rx="22" fill="#0D1B2A"/>
+                                                    <line x1="50" y1="42" x2="65" y2="27" stroke="#FFD97D" stroke-width="3" stroke-linecap="round"/>
+                                                    <circle cx="50" cy="42" r="3" fill="#FFD97D"/>
+                                                    <text x="50" y="78" text-anchor="middle" fill="#F8F4E8" font-size="14" font-weight="900">45°</text>
+                                                </svg>
+                                            </div>
+                                            <span class="step-app-name">꿈45°</span>
+                                        </div>
+                                    </div>
+                                    <h4>설치 완료!</h4>
+                                    <p>홈 화면에 <strong>꿈45°</strong> 아이콘이 생겼습니다. 터치하면 앱처럼 실행됩니다!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- iOS 가이드 -->
+                    <div class="install-panel" id="panel-ios">
+                        <div class="install-steps">
+                            <div class="install-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <div class="step-visual">
+                                        <div class="step-browser-bar step-safari">
+                                            <span class="step-url">dream45.vercel.app</span>
+                                            <span class="step-safari-share">
+                                                <svg viewBox="0 0 24 24" width="18" height="18" fill="#007AFF"><path d="M12 2l4 4h-3v8h-2V6H8l4-4zm8 14v4H4v-4H2v4a2 2 0 002 2h16a2 2 0 002-2v-4h-2z"/></svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h4>Safari로 사이트 접속</h4>
+                                    <p><strong>dream45.vercel.app</strong>을 Safari에서 열어주세요 (Chrome 아님!)</p>
+                                </div>
+                            </div>
+                            <div class="install-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <div class="step-visual">
+                                        <div class="step-share-menu">
+                                            <div class="step-share-icon">
+                                                <svg viewBox="0 0 24 24" width="24" height="24" fill="#007AFF"><path d="M12 2l4 4h-3v8h-2V6H8l4-4zm8 14v4H4v-4H2v4a2 2 0 002 2h16a2 2 0 002-2v-4h-2z"/></svg>
+                                            </div>
+                                            <span>공유 버튼 터치</span>
+                                        </div>
+                                    </div>
+                                    <h4>공유 버튼 터치</h4>
+                                    <p>하단의 <strong>공유 버튼</strong> (네모에서 화살표가 올라오는 아이콘)을 터치하세요</p>
+                                </div>
+                            </div>
+                            <div class="install-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <div class="step-visual">
+                                        <div class="step-add-home">
+                                            <span class="step-add-icon">+</span>
+                                            <span>홈 화면에 추가</span>
+                                        </div>
+                                    </div>
+                                    <h4>"홈 화면에 추가" 선택</h4>
+                                    <p>메뉴에서 <strong>"홈 화면에 추가"</strong>를 찾아 터치하세요</p>
+                                </div>
+                            </div>
+                            <div class="install-step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <div class="step-visual">
+                                        <div class="step-home-screen">
+                                            <div class="step-app-icon-small">
+                                                <svg viewBox="0 0 100 100" width="40" height="40">
+                                                    <rect width="100" height="100" rx="22" fill="#0D1B2A"/>
+                                                    <line x1="50" y1="42" x2="65" y2="27" stroke="#FFD97D" stroke-width="3" stroke-linecap="round"/>
+                                                    <circle cx="50" cy="42" r="3" fill="#FFD97D"/>
+                                                    <text x="50" y="78" text-anchor="middle" fill="#F8F4E8" font-size="14" font-weight="900">45°</text>
+                                                </svg>
+                                            </div>
+                                            <span class="step-app-name">꿈45°</span>
+                                        </div>
+                                    </div>
+                                    <h4>설치 완료!</h4>
+                                    <p>우측 상단 <strong>"추가"</strong>를 터치하면 홈 화면에 앱이 생깁니다!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 직접 설치 버튼 (PWA) -->
+                    <div class="install-direct">
+                        <button class="install-now-btn" id="installAppBtn">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M13 5v6h6l-7 8-7-8h6V5h2zm-2-2H6v2h2v6H2l10 11L22 11h-6V5h-5z"/></svg>
+                            지금 바로 설치하기
+                        </button>
+                        <p class="install-direct-note">Android Chrome에서 접속 시 바로 설치할 수 있습니다</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo">꿈 꾸는 45°</span>
+                <p class="footer-tagline">고개를 45도 들어 올리면, 거기에 당신의 꿈이 있습니다.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>섹션</h4>
+                    <a href="#gallery">명언 갤러리</a>
+                    <a href="#translator">4개국어 변환</a>
+                    <a href="#goods">굿즈 컬렉션</a>
+                    <a href="#platforms">글로벌 플랫폼</a>
+                </div>
+                <div class="footer-col">
+                    <h4>언어</h4>
+                    <span>한국어 Korean</span>
+                    <span>English</span>
+                    <span>中文 Chinese</span>
+                    <span>हिन्दी Hindi</span>
+                </div>
+                <div class="footer-col">
+                    <h4>소셜</h4>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">TikTok</a>
+                    <a href="#" class="social-link">Pinterest</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 꿈 꾸는 45도 연구소. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== LITTLE PRINCE WELL GIFT ========== -->
+    <div class="well-overlay" id="wellOverlay">
+        <div class="well-gift">
+            <div class="well-stars">
+                <span class="well-star ws1">&#10022;</span>
+                <span class="well-star ws2">&#10022;</span>
+                <span class="well-star ws3">&#10022;</span>
+                <span class="well-star ws4">&#10022;</span>
+                <span class="well-star ws5">&#10022;</span>
+            </div>
+            <div class="well-top">
+                <span class="well-time-badge" id="wellTimeBadge">Morning Gift</span>
+                <button class="well-close" id="wellClose">&times;</button>
+            </div>
+            <div class="well-illustration">
+                <svg viewBox="0 0 200 200" class="well-svg">
+                    <!-- 밤하늘 -->
+                    <circle cx="100" cy="100" r="95" fill="#0D1B2A"/>
+                    <!-- 별들 -->
+                    <circle cx="40" cy="30" r="1.5" fill="#FFD97D" opacity="0.8"/>
+                    <circle cx="160" cy="25" r="1" fill="#FFD97D" opacity="0.6"/>
+                    <circle cx="30" cy="70" r="1" fill="#FFD97D" opacity="0.7"/>
+                    <circle cx="170" cy="60" r="1.5" fill="#FFD97D" opacity="0.5"/>
+                    <circle cx="80" cy="20" r="1" fill="#FFD97D" opacity="0.9"/>
+                    <circle cx="140" cy="45" r="1" fill="#FFD97D" opacity="0.6"/>
+                    <!-- 달 -->
+                    <circle cx="150" cy="40" r="12" fill="#FFD97D" opacity="0.9"/>
+                    <circle cx="155" cy="36" r="10" fill="#0D1B2A"/>
+                    <!-- 우물 -->
+                    <rect x="70" y="110" width="60" height="50" rx="4" fill="#5C4033" opacity="0.9"/>
+                    <rect x="65" y="108" width="70" height="8" rx="3" fill="#8B6914"/>
+                    <ellipse cx="100" cy="115" rx="25" ry="6" fill="#1B1464" opacity="0.8"/>
+                    <!-- 우물 지붕 -->
+                    <line x1="75" y1="108" x2="75" y2="75" stroke="#8B6914" stroke-width="3"/>
+                    <line x1="125" y1="108" x2="125" y2="75" stroke="#8B6914" stroke-width="3"/>
+                    <polygon points="60,78 100,58 140,78" fill="#C5B4E3" opacity="0.8"/>
+                    <!-- 양동이 줄 -->
+                    <line x1="100" y1="68" x2="100" y2="100" stroke="#A0A0A0" stroke-width="1" stroke-dasharray="3,2"/>
+                    <!-- 양동이 (빛나는) -->
+                    <rect x="92" y="95" width="16" height="14" rx="2" fill="#FFD97D"/>
+                    <rect x="92" y="95" width="16" height="4" rx="1" fill="#F4A261"/>
+                    <!-- 빛 효과 -->
+                    <circle cx="100" cy="102" r="20" fill="#FFD97D" opacity="0.08"/>
+                    <circle cx="100" cy="102" r="35" fill="#FFD97D" opacity="0.04"/>
+                    <!-- 어린왕자 -->
+                    <circle cx="48" cy="135" r="7" fill="#FFD97D"/>
+                    <rect x="44" y="142" width="8" height="16" rx="2" fill="#2D6A4F"/>
+                    <polygon points="42,142 54,142 54,148 42,148" fill="#E8590C"/>
+                    <!-- 지면 -->
+                    <ellipse cx="100" cy="170" rx="80" ry="10" fill="#2D6A4F" opacity="0.3"/>
+                </svg>
+            </div>
+            <div class="well-gift-type" id="wellGiftType">
+                <div class="gift-type-cards">
+                    <div class="gift-type-card gift-well" id="giftTypeWell">
+                        <span class="gift-type-emoji">&#128688;</span>
+                        <strong>우물</strong>
+                        <p>내면의 희망</p>
+                    </div>
+                    <div class="gift-type-card gift-rose" id="giftTypeRose">
+                        <span class="gift-type-emoji">&#127801;</span>
+                        <strong>장미</strong>
+                        <p>고요한 책임감</p>
+                    </div>
+                    <div class="gift-type-card gift-box" id="giftTypeBox">
+                        <span class="gift-type-emoji">&#127873;</span>
+                        <strong>상자</strong>
+                        <p>무한한 잠재력</p>
+                    </div>
+                </div>
+            </div>
+            <div class="well-message">
+                <h3 class="well-title" id="wellTitle">어린왕자의 우물에서 온 선물</h3>
+                <p class="well-subtitle" id="wellSubtitle">오늘의 아침 우물에서 길어올린 한마디</p>
+            </div>
+            <div class="well-quote-box">
+                <blockquote class="well-quote" id="wellQuote"></blockquote>
+                <span class="well-author" id="wellAuthor"></span>
+            </div>
+            <div class="well-translations" id="wellTranslations">
+                <div class="well-lang">
+                    <span class="well-lang-label">English</span>
+                    <p class="well-lang-text" id="wellEn"></p>
+                </div>
+                <div class="well-lang">
+                    <span class="well-lang-label">中文</span>
+                    <p class="well-lang-text" id="wellZh"></p>
+                </div>
+                <div class="well-lang">
+                    <span class="well-lang-label">हिन्दी</span>
+                    <p class="well-lang-text" id="wellHi"></p>
+                </div>
+            </div>
+            <div class="well-footer">
+                <button class="well-share-btn" id="wellShareBtn">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16c-.8 0-1.4.4-2 .8l-7-4c.1-.3.1-.5.1-.8s0-.5-.1-.8l7-4c.5.5 1.2.8 2 .8 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .3 0 .5.1.8l-7 4C7.5 9.4 6.8 9 6 9c-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.4 2-.8l7 4c-.1.3-.1.5-.1.8 0 1.7 1.3 3 3 3s3-1.3 3-3-1.3-3-3-3z"/></svg>
+                    선물 나누기
+                </button>
+                <p class="well-next" id="wellNext">다음 선물: 오늘 저녁 6시</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== GAME OVERLAY (별을 쏘아라) ========== -->
+    <div class="game-fullscreen-overlay" id="gameOverlay">
+        <button class="game-overlay-close" id="closeGameBtn" aria-label="게임 닫기">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <iframe id="gameIframe" class="game-iframe" title="별을 쏘아라 게임"></iframe>
+    </div>
+
+    <!-- Toast notification for copy -->
+    <div class="toast" id="toast">복사되었습니다!</div>
+
+    <script src="js/main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
+</html>

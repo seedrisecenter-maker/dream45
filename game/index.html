@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>별을 쏘아라 | 꿈 꾸는 45°</title>
+    <meta name="theme-color" content="#0D1B2A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- 사용법 안내 바 (게임 중 항상 표시) -->
+    <div class="help-bar" id="helpBar">
+        <span class="help-icon">👆</span>
+        <span>화면을 <b>위로 드래그</b>하면 발사! <b style="color:#FFD97D">45°</b>가 최강!</span>
+        <button class="help-close" id="helpClose">✕</button>
+    </div>
+
+    <!-- HUD -->
+    <div class="game-hud" id="gameHud">
+        <div class="quote-bar" id="quoteBar"></div>
+        <div class="hud-top">
+            <div class="level-display" id="levelDisplay"></div>
+            <div class="score-display" id="scoreDisplay">0</div>
+        </div>
+        <div class="shots-display" id="shotsDisplay"></div>
+        <div class="angle-display" id="angleDisplay"></div>
+        <div class="combo-display hidden" id="comboDisplay"></div>
+    </div>
+
+    <!-- Title Screen -->
+    <div class="game-overlay" id="titleScreen">
+        <div class="title-content">
+            <div class="title-compass">
+                <svg viewBox="0 0 100 100" width="80" height="80">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,217,125,0.3)" stroke-width="1"/>
+                    <line x1="50" y1="50" x2="78" y2="22" stroke="#FFD97D" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="50" cy="50" r="4" fill="#FFD97D"/>
+                </svg>
+            </div>
+            <h1 class="game-title">별을 쏘아라</h1>
+            <p class="game-subtitle">Shoot for the Stars</p>
+            <div class="title-how">
+                <div class="how-step"><span>1</span> 화면을 드래그하여 방향 조준</div>
+                <div class="how-step"><span>2</span> 손을 떼면 별 발사!</div>
+                <div class="how-step"><span>3</span> <b style="color:#FFD97D">45°</b>로 쏘면 파워 보너스</div>
+                <div class="how-step"><span>4</span> 단어를 맞춰 명언 완성</div>
+            </div>
+            <button class="game-btn play-btn" id="playBtn">PLAY</button>
+            <button class="back-link" onclick="if(window.parent!==window){window.parent.postMessage('closeGame','*')}else{location.href='../index.html'}">← 꿈 꾸는 45° 메인으로</button>
+        </div>
+    </div>
+
+    <!-- Level Intro -->
+    <div class="game-overlay hidden" id="levelIntro">
+        <div class="level-intro-content">
+            <span class="level-number" id="levelNum"></span>
+            <h2 class="level-theme" id="levelTheme"></h2>
+            <div class="level-author" id="levelAuthor"></div>
+        </div>
+    </div>
+
+    <!-- Level Complete -->
+    <div class="game-overlay hidden" id="levelCompleteScreen">
+        <div class="complete-content">
+            <div class="complete-star">⭐</div>
+            <h2 class="complete-title">명언 완성!</h2>
+            <div class="completed-quote" id="completedQuote"></div>
+            <div class="quote-translations" id="quoteTranslations"></div>
+            <div class="level-score" id="levelScore"></div>
+            <button class="game-btn" id="nextLevelBtn">다음 레벨 →</button>
+        </div>
+    </div>
+
+    <!-- Level Failed -->
+    <div class="game-overlay hidden" id="levelFailedScreen">
+        <div class="failed-content">
+            <h2 class="failed-title">아쉬워요!</h2>
+            <p class="failed-desc">별이 부족합니다. 다시 도전하세요!</p>
+            <button class="game-btn" id="retryBtn">다시 도전</button>
+            <button class="game-btn btn-secondary" id="retryMenuBtn">메뉴로</button>
+        </div>
+    </div>
+
+    <!-- Game Complete -->
+    <div class="game-overlay hidden" id="gameCompleteScreen">
+        <div class="gameclear-content">
+            <div class="gameclear-star">🌟</div>
+            <h2 class="gameclear-title">꿈의 여행 완료!</h2>
+            <div class="final-score" id="finalScore"></div>
+            <div class="quotes-collected" id="quotesCollected"></div>
+            <button class="game-btn" id="shareBtn">결과 공유하기</button>
+            <button class="game-btn btn-secondary" id="replayBtn">다시 플레이</button>
+            <button class="back-link" onclick="if(window.parent!==window){window.parent.postMessage('closeGame','*')}else{location.href='../index.html'}">← 꿈 꾸는 45° 메인으로</button>
+        </div>
+    </div>
+
+    <!-- Sound Toggle -->
+    <button class="sound-toggle" id="soundToggle">🔊</button>
+
+    <!-- PWA Service Worker -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(function() {
+            navigator.serviceWorker.register('../sw.js').catch(function(){});
+        });
+    }
+    </script>
+
+    <!-- Scripts -->
+    <script src="js/game-config.js"></script>
+    <script src="js/game-physics.js"></script>
+    <script src="js/game-particles.js"></script>
+    <script src="js/game-audio.js"></script>
+    <script src="js/game-render.js"></script>
+    <script src="js/game-input.js"></script>
+    <script src="js/game-state.js"></script>
+    <script src="js/game-main.js"></script>
+</body>
+</html>
