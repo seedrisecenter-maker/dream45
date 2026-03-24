@@ -1803,3 +1803,97 @@ function showTotalDetail(layerId) {
     });
   });
 })();
+
+/* ============================================================
+   YOUTUBE SHORTS CAROUSEL
+   ============================================================ */
+(function initShortsCarousel() {
+  var track = document.getElementById('shortsTrack');
+  var prevBtn = document.getElementById('shortsPrev');
+  var nextBtn = document.getElementById('shortsNext');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  var slides = track.querySelectorAll('.shorts-slide');
+  var slideWidth = 196; // 180px + 16px gap
+  var visibleSlides = 4;
+  var currentIndex = 0;
+  var maxIndex = Math.max(0, slides.length - visibleSlides);
+
+  function updateCarousel() {
+    track.style.transform = 'translateX(-' + (currentIndex * slideWidth) + 'px)';
+    prevBtn.disabled = currentIndex <= 0;
+    nextBtn.disabled = currentIndex >= maxIndex;
+  }
+
+  function recalcVisible() {
+    var container = document.getElementById('ytShortsCarousel');
+    if (!container) return;
+    var w = container.clientWidth - 100;
+    var sw = window.innerWidth <= 768 ? 166 : 196;
+    slideWidth = sw;
+    visibleSlides = Math.max(1, Math.floor(w / sw));
+    maxIndex = Math.max(0, slides.length - visibleSlides);
+    if (currentIndex > maxIndex) currentIndex = maxIndex;
+    updateCarousel();
+  }
+
+  prevBtn.addEventListener('click', function() {
+    if (currentIndex > 0) { currentIndex--; updateCarousel(); }
+  });
+
+  nextBtn.addEventListener('click', function() {
+    if (currentIndex < maxIndex) { currentIndex++; updateCarousel(); }
+  });
+
+  // Touch/swipe support
+  var startX = 0;
+  var isDragging = false;
+
+  track.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  }, { passive: true });
+
+  track.addEventListener('touchend', function(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    var diff = startX - e.changedTouches[0].clientX;
+    if (diff > 40 && currentIndex < maxIndex) { currentIndex++; updateCarousel(); }
+    else if (diff < -40 && currentIndex > 0) { currentIndex--; updateCarousel(); }
+  });
+
+  // Play button — open video in local player or YouTube
+  var playBtns = track.querySelectorAll('.shorts-play-btn');
+  for (var i = 0; i < playBtns.length; i++) {
+    playBtns[i].addEventListener('click', function(e) {
+      e.stopPropagation();
+      var videoNum = this.getAttribute('data-video');
+      var player = document.getElementById('shortsPlayer' + videoNum);
+      if (!player) return;
+
+      // Try local video first, fallback to poster
+      var videoSrc = 'videos/final/short-' + (videoNum.length < 2 ? '0' : '') + videoNum + '.mp4';
+      var video = document.createElement('video');
+      video.src = videoSrc;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.objectFit = 'cover';
+      video.style.borderRadius = '16px';
+      video.style.background = '#000';
+
+      video.addEventListener('error', function() {
+        // Fallback: open YouTube channel
+        window.open('https://www.youtube.com/@%EC%9D%B4%EC%84%9C%EB%A0%A8-t6q', '_blank');
+      });
+
+      player.innerHTML = '';
+      player.appendChild(video);
+    });
+  }
+
+  window.addEventListener('resize', recalcVisible);
+  recalcVisible();
+})();

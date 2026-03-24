@@ -4860,6 +4860,193 @@ button {
     line-height: 2 !important;
 }
 
+/* ============================================================
+   YOUTUBE SHORTS CAROUSEL
+   ============================================================ */
+.yt-shorts-showcase {
+    margin: 60px 0 40px;
+    text-align: center;
+}
+
+.yt-shorts-title {
+    font-size: 1.6rem;
+    color: #FFD97D;
+    margin-bottom: 8px;
+}
+
+.yt-shorts-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 30px;
+}
+
+.yt-shorts-carousel {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0 50px;
+}
+
+.shorts-track {
+    display: flex;
+    gap: 16px;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+.shorts-slide {
+    flex: 0 0 180px;
+    text-align: center;
+}
+
+.shorts-player {
+    width: 180px;
+    height: 320px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.shorts-player:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 48px rgba(0,0,0,0.5);
+}
+
+.shorts-poster {
+    width: 100%;
+    height: 100%;
+}
+
+.shorts-poster-bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 16px;
+    position: relative;
+}
+
+.shorts-poster-num {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 2px;
+}
+
+.shorts-poster-quote {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #fff;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.shorts-poster-author {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.shorts-play-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.shorts-play-btn:hover {
+    background: rgba(255,217,125,0.4);
+    border-color: #FFD97D;
+    transform: scale(1.15);
+}
+
+.shorts-label {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+}
+
+.shorts-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(13,27,42,0.8);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.shorts-nav:hover {
+    background: rgba(255,217,125,0.3);
+    border-color: #FFD97D;
+}
+
+.shorts-prev { left: 0; }
+.shorts-next { right: 0; }
+
+.shorts-nav:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.shorts-video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 16px;
+}
+
+.yt-shorts-cta {
+    margin-top: 30px;
+}
+
+.yt-shorts-all-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #FF0000, #CC0000);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all var(--transition);
+    box-shadow: 0 4px 16px rgba(255,0,0,0.3);
+}
+
+.yt-shorts-all-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(255,0,0,0.4);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .celeb-grid {
@@ -4885,5 +5072,22 @@ button {
 
     .dream-stat-value {
         font-size: 2rem;
+    }
+
+    .shorts-slide {
+        flex: 0 0 150px;
+    }
+
+    .shorts-player {
+        width: 150px;
+        height: 267px;
+    }
+
+    .shorts-poster-quote {
+        font-size: 0.85rem;
+    }
+
+    .yt-shorts-carousel {
+        padding: 0 40px;
     }
 }
