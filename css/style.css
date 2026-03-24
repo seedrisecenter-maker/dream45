@@ -4366,3 +4366,524 @@ button {
 .game-overlay-close:active {
     transform: scale(0.95);
 }
+
+/* ============================================================
+   MOOD RECOMMENDER
+   ============================================================ */
+.mood-section {
+    background: linear-gradient(135deg, rgba(27,20,100,0.05), rgba(197,180,227,0.08));
+    padding: 60px 0;
+    text-align: center;
+}
+
+.mood-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.mood-desc {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 24px;
+}
+
+.mood-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.mood-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border: 2px solid rgba(27,20,100,0.15);
+    border-radius: 50px;
+    background: #fff;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition);
+    color: var(--text-primary);
+}
+
+.mood-btn:hover {
+    border-color: var(--dream-main);
+    background: rgba(27,20,100,0.05);
+    transform: translateY(-2px);
+}
+
+.mood-btn.active {
+    border-color: var(--dream-main);
+    background: var(--dream-main);
+    color: #fff;
+}
+
+.mood-emoji { font-size: 1.2rem; }
+
+.mood-result {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius);
+    border: 1px solid rgba(27,20,100,0.1);
+    animation: fade-up 0.5s ease;
+}
+
+.mood-quote {
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    quotes: "\201C" "\201D";
+}
+
+.mood-quote::before { content: open-quote; }
+.mood-quote::after { content: close-quote; }
+
+.mood-author {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 16px;
+}
+
+.mood-share-btn,
+.mood-another-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition);
+    margin: 0 6px;
+}
+
+.mood-share-btn {
+    background: var(--dream-main);
+    color: #fff;
+    border: none;
+}
+
+.mood-share-btn:hover { opacity: 0.9; }
+
+.mood-another-btn {
+    background: transparent;
+    color: var(--dream-main);
+    border: 1px solid var(--dream-main);
+}
+
+.mood-another-btn:hover {
+    background: var(--dream-main);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .mood-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .mood-btn { width: 100%; max-width: 260px; justify-content: center; }
+}
+
+/* ============================================================
+   DREAM WALL SECTION
+   ============================================================ */
+#dream-wall {
+    background: linear-gradient(180deg, var(--bg-night) 0%, #0a1628 100%);
+    color: var(--text-light);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#dream-wall::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,217,125,0.3), transparent);
+}
+
+.dream-submit { margin: 40px auto; max-width: 600px; }
+
+.dream-form-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+}
+
+.dream-form-card h3 {
+    font-size: 1.4rem;
+    color: #FFD97D;
+    margin-bottom: 8px;
+}
+
+.dream-form-card p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 20px;
+}
+
+.dream-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dream-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color var(--transition);
+}
+
+.dream-input:focus { border-color: #FFD97D; }
+
+.dream-input::placeholder { color: rgba(255,255,255,0.3); }
+
+.dream-name-input,
+.dream-country-select {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-family: inherit;
+    outline: none;
+}
+
+.dream-country-select option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.dream-submit-btn {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #FFD97D, #F4A261);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.dream-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255,217,125,0.3);
+}
+
+/* Dream constellation */
+.dream-constellation {
+    position: relative;
+    margin: 40px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.dream-canvas {
+    width: 100%;
+    height: 300px;
+    border-radius: var(--radius);
+    background: radial-gradient(ellipse at center, rgba(27,20,100,0.3) 0%, transparent 70%);
+}
+
+.dream-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 24px;
+}
+
+.dream-stat { text-align: center; }
+
+.dream-stat-value {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #FFD97D;
+}
+
+.dream-stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+}
+
+/* Dream list */
+.dream-recent { margin: 40px auto; max-width: 800px; }
+
+.dream-recent h3 {
+    font-size: 1.1rem;
+    color: #FFD97D;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.dream-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.dream-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 16px;
+    transition: transform var(--transition), border-color var(--transition);
+}
+
+.dream-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,217,125,0.3);
+}
+
+.dream-card-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.dream-card-meta {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Dream share */
+.dream-share-cta {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.dream-share-cta p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+}
+
+.dream-share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.share-btn:hover { transform: translateY(-3px); }
+.share-twitter:hover { background: #000; border-color: #fff; }
+.share-whatsapp:hover { background: #25d366; border-color: #25d366; }
+.share-kakao:hover { background: #FEE500; border-color: #FEE500; color: #3C1E1E; }
+.share-instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: transparent; }
+.share-tiktok:hover { background: #010101; border-color: #69C9D0; }
+.share-wechat:hover { background: #7BB32E; border-color: #7BB32E; }
+.share-link:hover { background: #FFD97D; border-color: #FFD97D; color: #1a1a2e; }
+
+/* ============================================================
+   CELEBRITY DREAMERS SECTION
+   ============================================================ */
+#celeb-dreamers {
+    background: linear-gradient(180deg, #0a1628 0%, var(--bg-night) 50%, var(--bg-ivory) 100%);
+    padding: 100px 0;
+    color: var(--text-light);
+}
+
+.celeb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.celeb-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.celeb-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,217,125,0.4);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.celeb-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    letter-spacing: 1px;
+}
+
+.celeb-bts { background: linear-gradient(135deg, #7B2FF7, #FF6B9D); color: #fff; }
+.celeb-musk { background: linear-gradient(135deg, #1a1a2e, #3a3a5e); color: #FFD97D; }
+.celeb-son { background: linear-gradient(135deg, #132257, #D01149); color: #fff; }
+.celeb-malala { background: linear-gradient(135deg, #2D6A4F, #95D5B2); color: #fff; }
+.celeb-srk { background: linear-gradient(135deg, #E8590C, #FFD97D); color: #fff; }
+.celeb-jack { background: linear-gradient(135deg, #FF6A00, #FFA500); color: #fff; }
+.celeb-ohta { background: linear-gradient(135deg, #002D62, #BA0021); color: #fff; }
+.celeb-oprah { background: linear-gradient(135deg, #9B2226, #F4A261); color: #fff; }
+
+.celeb-info { flex: 1; }
+
+.celeb-info h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.celeb-field {
+    font-size: 0.7rem;
+    color: #FFD97D;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.celeb-quote {
+    font-size: 0.85rem;
+    font-style: italic;
+    line-height: 1.5;
+    margin: 10px 0;
+    padding-left: 12px;
+    border-left: 2px solid rgba(255,217,125,0.4);
+    color: rgba(255,255,255,0.85);
+}
+
+.celeb-story {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+}
+
+/* Celebrity CTA */
+.celeb-cta { margin-top: 50px; }
+
+.celeb-cta-card {
+    background: linear-gradient(135deg, rgba(255,217,125,0.1), rgba(244,162,97,0.1));
+    border: 1px solid rgba(255,217,125,0.3);
+    border-radius: var(--radius);
+    padding: 40px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.celeb-cta-card h3 {
+    font-size: 1.5rem;
+    color: #FFD97D;
+    margin-bottom: 12px;
+}
+
+.celeb-cta-card p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.celeb-hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.celeb-hashtag {
+    padding: 8px 18px;
+    background: rgba(255,217,125,0.15);
+    border: 1px solid rgba(255,217,125,0.4);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #FFD97D;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.celeb-hashtag:hover {
+    background: #FFD97D;
+    color: #1a1a2e;
+}
+
+.celeb-cta-how {
+    font-size: 0.85rem !important;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto !important;
+    line-height: 2 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .celeb-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .celeb-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .celeb-quote {
+        border-left: none;
+        border-top: 2px solid rgba(255,217,125,0.4);
+        padding-left: 0;
+        padding-top: 10px;
+    }
+
+    .dream-stats {
+        gap: 30px;
+    }
+
+    .dream-stat-value {
+        font-size: 2rem;
+    }
+}

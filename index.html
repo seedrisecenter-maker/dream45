@@ -4,7 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>꿈 꾸는 45도 | Dreaming 45°</title>
-    <meta name="description" content="동서양 명언을 4개국어로 담은 인스피레이셔널 굿즈 브랜드 - 꿈 꾸는 45도">
+    <meta name="description" content="동서양 명언을 4개국어로 담은 인스피레이셔널 굿즈 브랜드 - 꿈 꾸는 45도. Dreams begin at 45°.">
+    <!-- Open Graph (Facebook, KakaoTalk, LINE) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="꿈 꾸는 45도 | Dreaming 45° — 고개를 들어 하늘을 보세요">
+    <meta property="og:description" content="동서양 위인들의 명언을 한국어·English·中文·हिन्दी 4개국어로. 꿈, 도전, 희망, 용기의 메시지를 전 세계에 전합니다.">
+    <meta property="og:url" content="https://dream45.vercel.app">
+    <meta property="og:image" content="https://dream45.vercel.app/icons/og-image.svg">
+    <meta property="og:site_name" content="꿈 꾸는 45도">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="zh_CN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="꿈 꾸는 45° | Dreaming 45°">
+    <meta name="twitter:description" content="Dreams begin at 45°. Inspirational quotes in 4 languages from the world's greatest minds.">
+    <meta name="twitter:image" content="https://dream45.vercel.app/icons/og-image.svg">
+    <!-- Additional SEO -->
+    <meta name="keywords" content="꿈, 명언, quotes, motivation, 동기부여, 영감, inspiration, dreaming, 4개국어, multilingual, 인생명언, life quotes, 도전, 희망, 용기, dream, 梦想, सपने">
+    <meta name="author" content="꿈 꾸는 45도 연구소">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://dream45.vercel.app">
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "꿈 꾸는 45도 | Dreaming 45°",
+      "url": "https://dream45.vercel.app",
+      "description": "동서양 위인들의 명언을 4개국어로 전하는 인스피레이셔널 브랜드",
+      "inLanguage": ["ko", "en", "zh", "hi"],
+      "publisher": {
+        "@type": "Organization",
+        "name": "꿈 꾸는 45도 연구소",
+        "url": "https://dream45.vercel.app"
+      }
+    }
+    </script>
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1B1464">
@@ -39,6 +76,8 @@
                 <li><a href="#platforms" class="nav-link" data-i18n="nav.platforms">글로벌 플랫폼</a></li>
                 <li><a href="#youtube" class="nav-link">YouTube</a></li>
                 <li><a href="#lab" class="nav-link" data-i18n="nav.lab">연구소</a></li>
+                <li><a href="#dream-wall" class="nav-link" data-i18n="nav.dreamwall">꿈 벽</a></li>
+                <li><a href="#celeb-dreamers" class="nav-link" data-i18n="nav.celeb">셀럽 드리머</a></li>
                 <li><a href="#" class="nav-link" id="openGameBtn" style="color:#FFD97D">별을 쏘아라</a></li>
                 <li><a href="#app-download" class="nav-link nav-app-btn" data-i18n="nav.appInstall">앱 설치</a></li>
             </ul>
@@ -514,6 +553,38 @@
             </div>
         </div>
     </section>
+
+    <!-- ========== MOOD RECOMMENDER ========== -->
+    <div id="mood-recommender" class="mood-section">
+        <div class="section-container">
+            <h3 class="mood-title" data-i18n="mood.title">오늘 어떤 기분이세요?</h3>
+            <p class="mood-desc" data-i18n="mood.desc">당신의 마음에 맞는 명언을 찾아드립니다</p>
+            <div class="mood-buttons">
+                <button class="mood-btn" data-mood="dream" data-i18n="mood.dream">
+                    <span class="mood-emoji">&#10024;</span>
+                    <span>꿈꾸고 싶다</span>
+                </button>
+                <button class="mood-btn" data-mood="challenge" data-i18n="mood.challenge">
+                    <span class="mood-emoji">&#128293;</span>
+                    <span>도전하고 싶다</span>
+                </button>
+                <button class="mood-btn" data-mood="hope" data-i18n="mood.hope">
+                    <span class="mood-emoji">&#127775;</span>
+                    <span>위로받고 싶다</span>
+                </button>
+                <button class="mood-btn" data-mood="courage" data-i18n="mood.courage">
+                    <span class="mood-emoji">&#9889;</span>
+                    <span>용기가 필요하다</span>
+                </button>
+            </div>
+            <div class="mood-result" id="moodResult" style="display:none">
+                <blockquote class="mood-quote" id="moodQuoteText"></blockquote>
+                <p class="mood-author" id="moodQuoteAuthor"></p>
+                <button class="mood-share-btn" id="moodShareBtn">공유하기</button>
+                <button class="mood-another-btn" id="moodAnotherBtn" data-i18n="mood.another">다른 명언 보기</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ========== SECTION 3: QUOTE GALLERY ========== -->
     <section id="gallery">
@@ -1166,6 +1237,202 @@
         </div>
     </section>
 
+    <!-- ========== SECTION: DREAM WALL (세계인의 꿈 벽) ========== -->
+    <section id="dream-wall">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">09</span>
+                <h2 class="section-title" data-i18n="dreamwall.title">세계인의 꿈 벽</h2>
+                <p class="section-desc" data-i18n="dreamwall.desc">당신의 꿈을 나누세요. 전 세계 사람들과 함께 꿈의 별자리를 만들어갑니다.</p>
+            </div>
+
+            <!-- 꿈 공유 폼 -->
+            <div class="dream-submit">
+                <div class="dream-form-card">
+                    <h3 data-i18n="dreamwall.askTitle">당신의 꿈은 무엇인가요?</h3>
+                    <p data-i18n="dreamwall.askDesc">한 줄로 당신의 꿈을 적어주세요. 어떤 언어든 괜찮습니다.</p>
+                    <div class="dream-form">
+                        <input type="text" id="dreamInput" class="dream-input" placeholder="나의 꿈은..." maxlength="100" data-i18n-placeholder="dreamwall.placeholder">
+                        <input type="text" id="dreamNameInput" class="dream-name-input" placeholder="이름 (선택)" maxlength="30">
+                        <select id="dreamCountry" class="dream-country-select">
+                            <option value="">국가 (선택)</option>
+                            <option value="KR">한국</option>
+                            <option value="US">USA</option>
+                            <option value="CN">中国</option>
+                            <option value="IN">India</option>
+                            <option value="JP">日本</option>
+                            <option value="GB">UK</option>
+                            <option value="DE">Deutschland</option>
+                            <option value="FR">France</option>
+                            <option value="BR">Brasil</option>
+                            <option value="MX">Mexico</option>
+                            <option value="NG">Nigeria</option>
+                            <option value="EG">مصر</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="PH">Philippines</option>
+                            <option value="VN">Viet Nam</option>
+                            <option value="TH">ไทย</option>
+                            <option value="OTHER">기타 / Other</option>
+                        </select>
+                        <button id="dreamSubmitBtn" class="dream-submit-btn" data-i18n="dreamwall.submit">꿈 나누기</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 꿈 벽 (별자리 시각화) -->
+            <div class="dream-constellation" id="dreamConstellation">
+                <canvas id="dreamCanvas" class="dream-canvas"></canvas>
+                <div class="dream-stats">
+                    <div class="dream-stat">
+                        <span class="dream-stat-value" id="dreamCount">0</span>
+                        <span class="dream-stat-label" data-i18n="dreamwall.totalDreams">꿈의 별</span>
+                    </div>
+                    <div class="dream-stat">
+                        <span class="dream-stat-value" id="dreamCountries">0</span>
+                        <span class="dream-stat-label" data-i18n="dreamwall.countries">참여 국가</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 최근 꿈 리스트 -->
+            <div class="dream-recent">
+                <h3 data-i18n="dreamwall.recentTitle">최근 나눈 꿈들</h3>
+                <div class="dream-list" id="dreamList">
+                    <!-- JS가 동적으로 꿈 카드 생성 -->
+                </div>
+            </div>
+
+            <!-- 공유 CTA -->
+            <div class="dream-share-cta">
+                <p data-i18n="dreamwall.shareCta">당신의 꿈을 세상에 알려주세요</p>
+                <div class="dream-share-buttons">
+                    <button class="share-btn share-twitter" id="shareTwitter" title="X (Twitter)">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </button>
+                    <button class="share-btn share-whatsapp" id="shareWhatsApp" title="WhatsApp">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    </button>
+                    <button class="share-btn share-kakao" id="shareKakao" title="KakaoTalk">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 3c-5.523 0-10 3.694-10 8.25 0 2.904 1.897 5.458 4.752 6.924l-1.217 4.469a.39.39 0 00.588.424l5.256-3.468c.206.013.414.026.621.026 5.523 0 10-3.694 10-8.25S17.523 3 12 3"/></svg>
+                    </button>
+                    <button class="share-btn share-instagram" id="shareInstagram" title="Instagram">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </button>
+                    <button class="share-btn share-tiktok" id="shareTikTok" title="TikTok">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.11V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.91a8.2 8.2 0 004.77 1.52V7a4.84 4.84 0 01-1-.31z"/></svg>
+                    </button>
+                    <button class="share-btn share-wechat" id="shareWeChat" title="WeChat">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05a6.37 6.37 0 01-.248-1.753c0-3.694 3.383-6.713 7.592-6.713.199 0 .394.011.588.027C16.493 4.267 12.931 2.188 8.691 2.188zm-2.51 4.083a1.147 1.147 0 110 2.293 1.147 1.147 0 010-2.293zm5.014 0a1.147 1.147 0 110 2.293 1.147 1.147 0 010-2.293zM15.346 9.37c-3.759 0-6.837 2.618-6.837 5.858 0 3.24 3.078 5.858 6.837 5.858a8.3 8.3 0 002.271-.32.776.776 0 01.591.078l1.543.916a.236.236 0 00.123.039c.117 0 .211-.095.211-.211 0-.051-.017-.098-.033-.148l-.312-1.182a.477.477 0 01.164-.524C21.401 18.786 22.183 17.093 22.183 15.228c0-3.24-3.078-5.858-6.837-5.858zm-2.539 3.546a.972.972 0 110 1.945.972.972 0 010-1.945zm5.015 0a.972.972 0 110 1.945.972.972 0 010-1.945z"/></svg>
+                    </button>
+                    <button class="share-btn share-link" id="shareCopyLink" title="링크 복사">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION: CELEBRITY DREAMERS ========== -->
+    <section id="celeb-dreamers">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">10</span>
+                <h2 class="section-title" data-i18n="celeb.title">셀럽 드리머</h2>
+                <p class="section-desc" data-i18n="celeb.desc">불가능을 현실로 만든 사람들. 그들도 한때 꿈꾸는 평범한 사람이었습니다.</p>
+            </div>
+
+            <div class="celeb-grid" id="celebGrid">
+                <div class="celeb-card" data-category="entertainment">
+                    <div class="celeb-avatar celeb-bts">BTS</div>
+                    <div class="celeb-info">
+                        <h4>BTS (방탄소년단)</h4>
+                        <span class="celeb-field">Music / Global Culture</span>
+                        <blockquote class="celeb-quote">"작은 것들을 위한 시. 우리의 꿈은 지방 출신 아이돌이 세계를 바꿀 수 있다는 걸 보여주는 것이었어요."</blockquote>
+                        <p class="celeb-story">대구·부산 출신 7명의 소년이 세계 음악의 역사를 바꿨습니다. UN 연설에서 "자신을 사랑하라"는 메시지를 전 세계에 전했습니다.</p>
+                    </div>
+                </div>
+                <div class="celeb-card" data-category="tech">
+                    <div class="celeb-avatar celeb-musk">EM</div>
+                    <div class="celeb-info">
+                        <h4>Elon Musk</h4>
+                        <span class="celeb-field">Tech / Space</span>
+                        <blockquote class="celeb-quote">"When something is important enough, you do it even if the odds are not in your favor."</blockquote>
+                        <p class="celeb-story">PayPal, Tesla, SpaceX — 세 번 연속 불가능하다는 말을 들었지만 멈추지 않았습니다. 화성 이주라는 꿈을 현실로 만들어가는 중.</p>
+                    </div>
+                </div>
+                <div class="celeb-card" data-category="sports">
+                    <div class="celeb-avatar celeb-son">SH</div>
+                    <div class="celeb-info">
+                        <h4>손흥민 (Son Heung-min)</h4>
+                        <span class="celeb-field">Sports / Football</span>
+                        <blockquote class="celeb-quote">"축구에 대한 열정과 꿈이 있다면, 어디서 왔는지는 중요하지 않습니다."</blockquote>
+                        <p class="celeb-story">춘천 출신 소년이 프리미어리그 득점왕이 되기까지. 아시아 축구의 벽을 허문 꿈의 증명.</p>
+                    </div>
+                </div>
+                <div class="celeb-card" data-category="activism">
+                    <div class="celeb-avatar celeb-malala">MY</div>
+                    <div class="celeb-info">
+                        <h4>Malala Yousafzai</h4>
+                        <span class="celeb-field">Education / Peace</span>
+                        <blockquote class="celeb-quote">"One child, one teacher, one book, one pen can change the world."</blockquote>
+                        <p class="celeb-story">탈레반의 총격에도 굴하지 않은 소녀. 17세에 최연소 노벨 평화상. 교육이라는 꿈으로 세계를 바꾸는 중.</p>
+                    </div>
+                </div>
+                <div class="celeb-card" data-category="entertainment">
+                    <div class="celeb-avatar celeb-srk">SRK</div>
+                    <div class="celeb-info">
+                        <h4>Shah Rukh Khan</h4>
+                        <span class="celeb-field">Cinema / Bollywood</span>
+                        <blockquote class="celeb-quote">"बड़े हो जाने पर मैं दुनिया का सबसे बड़ा मूवी स्टार बनूंगा।"</blockquote>
+                        <p class="celeb-story">델리의 가난한 소년이 볼리우드의 왕이 되기까지. "성공은 외로운 길이지만, 꿈은 동반자다"라는 그의 철학.</p>
+                    </div>
+                </div>
+                <div class="celeb-card" data-category="tech">
+                    <div class="celeb-avatar celeb-jack">JM</div>
+                    <div class="celeb-info">
+                        <h4>Jack Ma (马云)</h4>
+                        <span class="celeb-field">Tech / E-commerce</span>
+                        <blockquote class="celeb-quote">"今天很残酷，明天更残酷，后天很美好。"</blockquote>
+                        <p class="celeb-story">영어 교사에서 알리바바 창립자로. 30번 이상 거절당했지만 "오늘은 잔인하고, 내일은 더 잔인하지만, 모레는 아름답다"며 나아갔습니다.</p>
+                    </div>
+                </div>
+                <div class="celeb-card" data-category="sports">
+                    <div class="celeb-avatar celeb-ohta">SO</div>
+                    <div class="celeb-info">
+                        <h4>오타니 쇼헤이 (大谷翔平)</h4>
+                        <span class="celeb-field">Sports / Baseball</span>
+                        <blockquote class="celeb-quote">"二刀流は不可能だと言われた。でも、やってみなければわからない。"</blockquote>
+                        <p class="celeb-story">투수와 타자를 동시에 — 모두가 불가능하다고 한 "이도류"를 현실로 만든 현대 야구의 전설.</p>
+                    </div>
+                </div>
+                <div class="celeb-card" data-category="activism">
+                    <div class="celeb-avatar celeb-oprah">OW</div>
+                    <div class="celeb-info">
+                        <h4>Oprah Winfrey</h4>
+                        <span class="celeb-field">Media / Philanthropy</span>
+                        <blockquote class="celeb-quote">"The biggest adventure you can ever take is to live the life of your dreams."</blockquote>
+                        <p class="celeb-story">가난과 학대를 딛고 세계에서 가장 영향력 있는 미디어 인물이 되었습니다. 꿈의 힘을 증명한 살아있는 전설.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 셀럽 참여 CTA -->
+            <div class="celeb-cta">
+                <div class="celeb-cta-card">
+                    <h3 data-i18n="celeb.ctaTitle">45도 챌린지에 참여하세요</h3>
+                    <p data-i18n="celeb.ctaDesc">고개를 45도 들고 당신의 꿈을 말해주세요. #Dream45Challenge 해시태그와 함께 업로드하면 세계인과 꿈을 나눌 수 있습니다.</p>
+                    <div class="celeb-hashtags">
+                        <span class="celeb-hashtag">#Dream45Challenge</span>
+                        <span class="celeb-hashtag">#꿈꾸는45도</span>
+                        <span class="celeb-hashtag">#Dream45</span>
+                        <span class="celeb-hashtag">#WhatIsYourDream</span>
+                    </div>
+                    <p class="celeb-cta-how" data-i18n="celeb.ctaHow">1. 고개를 45도 올리고 셀카/영상 촬영<br>2. "나의 꿈은 ___입니다" 한 줄 작성<br>3. 해시태그와 함께 SNS 업로드<br>4. 친구 3명 태그하여 꿈 릴레이!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ========== SECTION: APP DOWNLOAD ========== -->
     <section id="app-download">
         <div class="section-container">
@@ -1407,9 +1674,15 @@
                 </div>
                 <div class="footer-col">
                     <h4>소셜</h4>
+                    <a href="https://www.youtube.com/@%EC%9D%B4%EC%84%9C%EB%A0%A8-t6q" target="_blank" rel="noopener" class="social-link">YouTube</a>
                     <a href="#" class="social-link">Instagram</a>
                     <a href="#" class="social-link">TikTok</a>
                     <a href="#" class="social-link">Pinterest</a>
+                </div>
+                <div class="footer-col">
+                    <h4>참여</h4>
+                    <a href="#dream-wall">꿈 벽에 참여</a>
+                    <a href="#celeb-dreamers">#Dream45Challenge</a>
                 </div>
             </div>
             <div class="footer-bottom">

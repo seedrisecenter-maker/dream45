@@ -62,6 +62,8 @@ function loadQuotes() {
     .then(function (res) { return res.json(); })
     .then(function (data) {
       quotes = data;
+      // Inject Quote Schema (JSON-LD) for SEO - Google Featured Snippets
+      injectQuoteSchemas(data);
       return data;
     })
     .catch(function () {
@@ -77,6 +79,31 @@ function loadQuotes() {
       }];
       return quotes;
     });
+}
+
+// ── Quote Schema injection for SEO ──────────────
+function injectQuoteSchemas(data) {
+  var schemas = data.slice(0, 20).map(function(q) {
+    return {
+      "@context": "https://schema.org",
+      "@type": "Quotation",
+      "text": q.en,
+      "spokenByCharacter": {
+        "@type": "Person",
+        "name": q.author.split('(')[0].trim()
+      },
+      "inLanguage": ["ko", "en", "zh", "hi"],
+      "isPartOf": {
+        "@type": "WebPage",
+        "name": "\uAFC8 \uAFB8\uB294 45\uB3C4 | Dreaming 45\u00B0",
+        "url": "https://dream45.vercel.app"
+      }
+    };
+  });
+  var script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(schemas);
+  document.head.appendChild(script);
 }
 
 // ── 2. 플랫폼 데이터 ────────────────────────────
@@ -1456,3 +1483,323 @@ function showTotalDetail(layerId) {
     '</div>';
   detail.style.display = 'block';
 }
+
+/* ============================================================
+   MOOD RECOMMENDER — emotion-based quote recommendation
+   ============================================================ */
+(function initMoodRecommender() {
+  var moodBtns = document.querySelectorAll('.mood-btn');
+  var moodResult = document.getElementById('moodResult');
+  var moodQuoteText = document.getElementById('moodQuoteText');
+  var moodQuoteAuthor = document.getElementById('moodQuoteAuthor');
+  var moodShareBtn = document.getElementById('moodShareBtn');
+  var moodAnotherBtn = document.getElementById('moodAnotherBtn');
+  var currentMood = '';
+  var currentQuote = null;
+
+  if (!moodBtns.length || !moodResult) return;
+
+  function getRandomQuoteByMood(mood) {
+    var filtered = quotes.filter(function(q) { return q.theme === mood; });
+    if (filtered.length === 0) return quotes[0];
+    return filtered[Math.floor(Math.random() * filtered.length)];
+  }
+
+  function showMoodQuote(mood) {
+    currentMood = mood;
+    var q = getRandomQuoteByMood(mood);
+    currentQuote = q;
+    var lang = localStorage.getItem('dream45_lang') || 'ko';
+    moodQuoteText.textContent = q[lang] || q.ko;
+    moodQuoteAuthor.textContent = '\u2014 ' + q.author.split('(')[0].trim();
+    moodResult.style.display = 'block';
+    moodResult.style.animation = 'none';
+    moodResult.offsetHeight; // trigger reflow
+    moodResult.style.animation = 'fade-up 0.5s ease';
+  }
+
+  moodBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      moodBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      showMoodQuote(btn.dataset.mood);
+    });
+  });
+
+  if (moodAnotherBtn) {
+    moodAnotherBtn.addEventListener('click', function() {
+      if (currentMood) showMoodQuote(currentMood);
+    });
+  }
+
+  if (moodShareBtn) {
+    moodShareBtn.addEventListener('click', function() {
+      if (!currentQuote) return;
+      var text = currentQuote.ko + '\n' + currentQuote.en + '\n\n\u2014 ' + currentQuote.author.split('(')[0].trim() + '\n\n#\uAFC8\uAFB8\uB29445\uB3C4 #Dream45\nhttps://dream45.vercel.app';
+      if (navigator.share) {
+        navigator.share({ title: '\uAFC8 \uAFB8\uB294 45\uB3C4 | \uBA85\uC5B8', text: text });
+      } else {
+        navigator.clipboard.writeText(text).then(function() {
+          moodShareBtn.textContent = '\uBCF5\uC0AC\uB428!';
+          setTimeout(function() { moodShareBtn.textContent = '\uACF5\uC720\uD558\uAE30'; }, 1500);
+        });
+      }
+    });
+  }
+})();
+
+/* ============================================================
+   DREAM WALL — interactive dream sharing
+   ============================================================ */
+(function initDreamWall() {
+  var STORAGE_KEY = 'dream45_dreams';
+  var dreamInput = document.getElementById('dreamInput');
+  var dreamNameInput = document.getElementById('dreamNameInput');
+  var dreamCountry = document.getElementById('dreamCountry');
+  var dreamSubmitBtn = document.getElementById('dreamSubmitBtn');
+  var dreamList = document.getElementById('dreamList');
+  var dreamCountEl = document.getElementById('dreamCount');
+  var dreamCountriesEl = document.getElementById('dreamCountries');
+  var dreamCanvas = document.getElementById('dreamCanvas');
+
+  if (!dreamInput || !dreamSubmitBtn) return;
+
+  // seed dreams for first-time visitors
+  var seedDreams = [
+    { text: '세계 모든 아이들이 꿈을 가질 수 있는 세상을 만들고 싶다', name: '연구원', country: 'KR', ts: Date.now() - 86400000 },
+    { text: 'I want to build schools in every village that needs one', name: 'Sarah', country: 'US', ts: Date.now() - 72000000 },
+    { text: '用音乐连接世界每一个角落', name: '小明', country: 'CN', ts: Date.now() - 60000000 },
+    { text: 'मैं एक ऐसी दुनिया बनाना चाहता हूँ जहाँ हर बच्चा पढ़ सके', name: 'Arjun', country: 'IN', ts: Date.now() - 50000000 },
+    { text: '환경을 살리는 기술로 지구를 지키고 싶다', name: '꿈꾸는 공학도', country: 'KR', ts: Date.now() - 40000000 },
+    { text: 'To write a story that makes someone believe in themselves again', name: 'Emma', country: 'GB', ts: Date.now() - 30000000 },
+    { text: '世界中の人を笑顔にする映画を作りたい', name: 'Yuki', country: 'JP', ts: Date.now() - 20000000 },
+    { text: 'Quiero crear arte que inspire paz en el mundo', name: 'Maria', country: 'MX', ts: Date.now() - 10000000 },
+    { text: 'I dream of clean water for every family in Africa', name: 'Amara', country: 'NG', ts: Date.now() - 5000000 },
+    { text: 'Ingin menjadi guru yang mengubah kehidupan murid-murid saya', name: 'Putri', country: 'ID', ts: Date.now() - 3000000 },
+  ];
+
+  function getDreams() {
+    try {
+      var stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) return JSON.parse(stored);
+    } catch (e) { /* ignore */ }
+    // first visit — seed and save
+    saveDreams(seedDreams);
+    return seedDreams;
+  }
+
+  function saveDreams(dreams) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(dreams)); } catch (e) { /* ignore */ }
+  }
+
+  function countryFlag(code) {
+    if (!code || code === 'OTHER') return '';
+    var flags = {KR:'\uD83C\uDDF0\uD83C\uDDF7',US:'\uD83C\uDDFA\uD83C\uDDF8',CN:'\uD83C\uDDE8\uD83C\uDDF3',IN:'\uD83C\uDDEE\uD83C\uDDF3',JP:'\uD83C\uDDEF\uD83C\uDDF5',GB:'\uD83C\uDDEC\uD83C\uDDE7',DE:'\uD83C\uDDE9\uD83C\uDDEA',FR:'\uD83C\uDDEB\uD83C\uDDF7',BR:'\uD83C\uDDE7\uD83C\uDDF7',MX:'\uD83C\uDDF2\uD83C\uDDFD',NG:'\uD83C\uDDF3\uD83C\uDDEC',EG:'\uD83C\uDDEA\uD83C\uDDEC',ID:'\uD83C\uDDEE\uD83C\uDDE9',PH:'\uD83C\uDDF5\uD83C\uDDED',VN:'\uD83C\uDDFB\uD83C\uDDF3',TH:'\uD83C\uDDF9\uD83C\uDDED'};
+    return flags[code] || '';
+  }
+
+  function renderDreams() {
+    var dreams = getDreams();
+    if (!dreamList) return;
+    dreamList.innerHTML = '';
+    var sorted = dreams.slice().sort(function(a, b) { return b.ts - a.ts; });
+    sorted.slice(0, 12).forEach(function(d) {
+      var card = document.createElement('div');
+      card.className = 'dream-card';
+      var flag = countryFlag(d.country);
+      card.innerHTML =
+        '<p class="dream-card-text">"' + escapeHtml(d.text) + '"</p>' +
+        '<div class="dream-card-meta"><span>' + (flag ? flag + ' ' : '') + escapeHtml(d.name || 'Anonymous') + '</span><span>' + timeAgo(d.ts) + '</span></div>';
+      dreamList.appendChild(card);
+    });
+
+    // update stats
+    if (dreamCountEl) dreamCountEl.textContent = dreams.length;
+    if (dreamCountriesEl) {
+      var countries = {};
+      dreams.forEach(function(d) { if (d.country) countries[d.country] = true; });
+      dreamCountriesEl.textContent = Object.keys(countries).length;
+    }
+
+    // render constellation
+    renderConstellation(dreams);
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  function timeAgo(ts) {
+    var diff = Date.now() - ts;
+    var mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    var hours = Math.floor(mins / 60);
+    if (hours < 24) return hours + 'h ago';
+    var days = Math.floor(hours / 24);
+    return days + 'd ago';
+  }
+
+  function renderConstellation(dreams) {
+    if (!dreamCanvas) return;
+    var ctx = dreamCanvas.getContext('2d');
+    var w = dreamCanvas.width = dreamCanvas.offsetWidth * (window.devicePixelRatio || 1);
+    var h = dreamCanvas.height = dreamCanvas.offsetHeight * (window.devicePixelRatio || 1);
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+    var dw = dreamCanvas.offsetWidth;
+    var dh = dreamCanvas.offsetHeight;
+    ctx.clearRect(0, 0, dw, dh);
+
+    var themeColors = {
+      KR: '#FFD97D', US: '#C5B4E3', CN: '#F4A261', IN: '#95D5B2',
+      JP: '#FF6B9D', GB: '#7B9FD4', DE: '#F09433', default: 'rgba(255,255,255,0.6)'
+    };
+
+    var points = [];
+    dreams.forEach(function(d, i) {
+      // distribute points in a circular pattern
+      var angle = (i / dreams.length) * Math.PI * 2 + (d.ts % 100) * 0.01;
+      var radius = 40 + Math.random() * (Math.min(dw, dh) * 0.35);
+      var x = dw / 2 + Math.cos(angle) * radius;
+      var y = dh / 2 + Math.sin(angle) * radius;
+      var size = 1.5 + Math.random() * 2.5;
+      var color = themeColors[d.country] || themeColors['default'];
+      points.push({ x: x, y: y, size: size, color: color });
+
+      // draw star
+      ctx.beginPath();
+      ctx.arc(x, y, size, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.4 + Math.random() * 0.6;
+      ctx.fill();
+
+      // glow
+      ctx.beginPath();
+      ctx.arc(x, y, size * 3, 0, Math.PI * 2);
+      var grd = ctx.createRadialGradient(x, y, 0, x, y, size * 3);
+      grd.addColorStop(0, color);
+      grd.addColorStop(1, 'transparent');
+      ctx.fillStyle = grd;
+      ctx.globalAlpha = 0.15;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    });
+
+    // draw constellation lines between nearby stars
+    ctx.strokeStyle = 'rgba(255,217,125,0.08)';
+    ctx.lineWidth = 0.5;
+    for (var i = 0; i < points.length; i++) {
+      for (var j = i + 1; j < points.length; j++) {
+        var dx = points[i].x - points[j].x;
+        var dy = points[i].y - points[j].y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 80) {
+          ctx.beginPath();
+          ctx.moveTo(points[i].x, points[i].y);
+          ctx.lineTo(points[j].x, points[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  // submit handler
+  dreamSubmitBtn.addEventListener('click', function() {
+    var text = dreamInput.value.trim();
+    if (!text) { dreamInput.focus(); return; }
+    if (text.length < 2) { dreamInput.focus(); return; }
+
+    var dream = {
+      text: text,
+      name: dreamNameInput.value.trim() || 'Anonymous',
+      country: dreamCountry.value || '',
+      ts: Date.now()
+    };
+
+    var dreams = getDreams();
+    dreams.push(dream);
+    saveDreams(dreams);
+
+    dreamInput.value = '';
+    dreamNameInput.value = '';
+
+    renderDreams();
+
+    // little celebration effect
+    dreamSubmitBtn.textContent = '\u2728 \uAFC8\uC774 \uB354\uD574\uC84C\uC5B4\uC694!';
+    setTimeout(function() { dreamSubmitBtn.textContent = '\uAFC8 \uB098\uB204\uAE30'; }, 2000);
+  });
+
+  // Enter key
+  dreamInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') dreamSubmitBtn.click();
+  });
+
+  // initial render
+  renderDreams();
+
+  // resize handler for constellation
+  window.addEventListener('resize', function() { renderDreams(); });
+})();
+
+/* ============================================================
+   SOCIAL SHARING — viral spread features
+   ============================================================ */
+(function initShareButtons() {
+  var siteUrl = 'https://dream45.vercel.app';
+  var shareText = '\uACE0\uAC1C\uB97C 45\uB3C4 \uB4E4\uC5B4 \uD558\uB298\uC744 \uBC14\uB77C\uBCF4\uB294 \uC21C\uAC04, \uAFC8\uC740 \uC2DC\uC791\uB41C\uB2E4. \uD83C\uDF1F\nDreams begin at 45\u00B0 \u2014 Inspirational quotes in 4 languages.\n\n' + siteUrl + '\n\n#\uAFC8\uAFB8\uB29445\uB3C4 #Dream45 #Dream45Challenge';
+
+  function bind(id, handler) {
+    var btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', handler);
+  }
+
+  bind('shareTwitter', function() {
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText), '_blank', 'width=600,height=400');
+  });
+
+  bind('shareWhatsApp', function() {
+    window.open('https://wa.me/?text=' + encodeURIComponent(shareText), '_blank');
+  });
+
+  bind('shareKakao', function() {
+    // fallback: copy to clipboard and open KakaoTalk share page
+    navigator.clipboard.writeText(shareText).then(function() {
+      alert('\uD074\uB9BD\uBCF4\uB4DC\uC5D0 \uBCF5\uC0AC\uB418\uC5C8\uC2B5\uB2C8\uB2E4! \uCE74\uCE74\uC624\uD1A1\uC5D0 \uBD99\uC5EC\uB123\uAE30 \uD574\uC8FC\uC138\uC694 \uD83D\uDCCB');
+    });
+  });
+
+  bind('shareInstagram', function() {
+    navigator.clipboard.writeText(shareText).then(function() {
+      alert('\uD14D\uC2A4\uD2B8\uAC00 \uBCF5\uC0AC\uB418\uC5C8\uC2B5\uB2C8\uB2E4! Instagram \uC2A4\uD1A0\uB9AC\uB098 \uD53C\uB4DC\uC5D0 \uBD99\uC5EC\uB123\uC5B4\uC8FC\uC138\uC694 \uD83D\uDCF7');
+    });
+  });
+
+  bind('shareTikTok', function() {
+    navigator.clipboard.writeText(shareText).then(function() {
+      alert('#Dream45Challenge \uD14D\uC2A4\uD2B8\uAC00 \uBCF5\uC0AC\uB418\uC5C8\uC2B5\uB2C8\uB2E4! TikTok\uC5D0\uC11C \uCC4C\uB9B0\uC9C0\uC5D0 \uCC38\uC5EC\uD574\uBCF4\uC138\uC694 \uD83C\uDFAC');
+    });
+  });
+
+  bind('shareWeChat', function() {
+    navigator.clipboard.writeText('\u68A6\u60F3\u4ECE45\u00B0\u5F00\u59CB \u2728\n' + siteUrl + '\n#\u68A6\u60F345\u5EA6').then(function() {
+      alert('\u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\uFF01\u8BF7\u5728\u5FAE\u4FE1\u4E2D\u7C98\u8D34\u5206\u4EAB \uD83D\uDCCB');
+    });
+  });
+
+  bind('shareCopyLink', function() {
+    navigator.clipboard.writeText(siteUrl).then(function() {
+      var btn = document.getElementById('shareCopyLink');
+      if (btn) {
+        btn.style.background = '#FFD97D';
+        btn.style.color = '#1a1a2e';
+        setTimeout(function() {
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 1500);
+      }
+    });
+  });
+})();
