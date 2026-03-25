@@ -1897,3 +1897,234 @@ function showTotalDetail(layerId) {
   window.addEventListener('resize', recalcVisible);
   recalcVisible();
 })();
+
+/* ============================================================
+   FEATURE ADD-ONS
+   ============================================================ */
+
+// ── Feature 1: Daily Countdown Timer ─────────────────────────
+(function initCountdown() {
+  var msgEl   = document.getElementById('countdownMsg');
+  var hourEl  = document.getElementById('ctHour');
+  var minEl   = document.getElementById('ctMin');
+  var secEl   = document.getElementById('ctSec');
+  var untilEl = document.querySelector('.countdown-until');
+  if (!msgEl || !hourEl) return;
+
+  var wasMidnight = false;
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function triggerMidnight() {
+    // 새로운 하루 메시지 + 별 애니메이션
+    msgEl.innerHTML = '<span class="midnight-star">&#10022;</span> 새로운 하루, 새로운 꿈! <span class="midnight-star">&#10022;</span>';
+    msgEl.classList.add('midnight');
+    if (untilEl) untilEl.style.display = 'none';
+
+    // 오늘의 명언 자동 교체
+    setTimeout(function () {
+      renderDailyQuote();
+    }, 1200);
+
+    // 3초 뒤 정상 복귀
+    setTimeout(function () {
+      msgEl.innerHTML = '오늘 하루도 꿈을 꾸세요';
+      msgEl.classList.remove('midnight');
+      if (untilEl) untilEl.style.display = '';
+      wasMidnight = false;
+    }, 3000);
+  }
+
+  function tick() {
+    var now      = new Date();
+    var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    var diff     = Math.floor((midnight - now) / 1000);
+
+    if (diff <= 0) {
+      if (!wasMidnight) {
+        wasMidnight = true;
+        triggerMidnight();
+      }
+      hourEl.textContent = '00';
+      minEl.textContent  = '00';
+      secEl.textContent  = '00';
+      return;
+    }
+
+    var h = Math.floor(diff / 3600);
+    var m = Math.floor((diff % 3600) / 60);
+    var s = diff % 60;
+
+    hourEl.textContent = pad(h);
+    minEl.textContent  = pad(m);
+    secEl.textContent  = pad(s);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+
+// ── Feature 2: Visitor Counter ───────────────────────────────
+(function initVisitorCounter() {
+  var el = document.getElementById('visitorCount');
+  if (!el) return;
+
+  var STORAGE_KEY = 'dream45_visitors';
+  var VISITOR_KEY = 'dream45_is_visitor';
+  var BASE_COUNT  = 1247; // 시드 값 (사이트 런칭 이전 상상 방문자)
+
+  var stored = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+  if (!stored) stored = BASE_COUNT;
+
+  // 이번 세션에 처음 방문하는 경우에만 카운트 증가
+  if (!sessionStorage.getItem(VISITOR_KEY)) {
+    sessionStorage.setItem(VISITOR_KEY, '1');
+    stored += 1;
+    localStorage.setItem(STORAGE_KEY, String(stored));
+  }
+
+  var target = stored;
+  var current = Math.max(0, target - 30);
+
+  function countUp() {
+    if (current >= target) {
+      el.textContent = target.toLocaleString('ko-KR');
+      return;
+    }
+    var step = Math.ceil((target - current) / 15);
+    current = Math.min(current + step, target);
+    el.textContent = current.toLocaleString('ko-KR');
+    requestAnimationFrame(countUp);
+  }
+
+  // IntersectionObserver로 뷰포트 진입 시 카운트업 시작
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        countUp();
+        observer.disconnect();
+      }
+    }, { threshold: 0.5 });
+    var wrap = document.getElementById('visitorCounterWrap');
+    if (wrap) observer.observe(wrap);
+  } else {
+    countUp();
+  }
+})();
+
+// ── Feature 3: Scroll-triggered Random Quote Popup ───────────
+(function initScrollQuotePopup() {
+  var popup     = document.getElementById('scrollQuotePopup');
+  var closeBtn  = document.getElementById('scrollQuoteClose');
+  var textEl    = document.getElementById('scrollQuoteText');
+  var authorEl  = document.getElementById('scrollQuoteAuthor');
+  if (!popup) return;
+
+  var SESSION_KEY = 'dream45_popup_shown';
+  if (sessionStorage.getItem(SESSION_KEY)) return;
+
+  var shown    = false;
+  var dismissed = false;
+  var hideTimer = null;
+
+  function showPopup() {
+    if (shown || dismissed || quotes.length === 0) return;
+    shown = true;
+    sessionStorage.setItem(SESSION_KEY, '1');
+
+    // 현재 오늘의 명언과 다른 랜덤 명언 선택
+    var dailyIdx = getDailyQuoteIndex(quotes.length);
+    var pool = quotes.filter(function (q, i) { return i !== dailyIdx; });
+    var q = pool[Math.floor(Math.random() * pool.length)];
+
+    textEl.textContent  = '\u201C' + q.ko + '\u201D';
+    authorEl.textContent = '\u2014 ' + q.author.split('(')[0].trim();
+
+    popup.classList.add('visible');
+
+    hideTimer = setTimeout(function () {
+      hidePopup();
+    }, 5000);
+  }
+
+  function hidePopup() {
+    popup.classList.remove('visible');
+    dismissed = true;
+    if (hideTimer) clearTimeout(hideTimer);
+  }
+
+  closeBtn.addEventListener('click', hidePopup);
+
+  var triggered = false;
+  window.addEventListener('scroll', function () {
+    if (triggered) return;
+    var scrollRatio = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+    if (scrollRatio >= 0.5) {
+      triggered = true;
+      // quotes 로드 완료 후 표시 (딜레이 추가로 자연스럽게)
+      setTimeout(showPopup, 400);
+    }
+  }, { passive: true });
+})();
+
+// ── Feature 4: Quote Card Copy Button ────────────────────────
+// renderQuoteCards를 감싸서 복사 버튼을 각 카드에 추가
+(function patchQuoteCardCopy() {
+  var _origRender = renderQuoteCards;
+
+  renderQuoteCards = function (filter) {
+    _origRender(filter);
+
+    var grid = document.getElementById('quoteGrid');
+    if (!grid) return;
+
+    var cards = grid.querySelectorAll('.quote-card');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        // 이미 버튼이 있으면 건너뜀
+        if (card.querySelector('.card-copy-btn')) return;
+
+        var quoteId  = parseInt(card.dataset.id, 10);
+        var q        = quotes.find(function (item) { return item.id === quoteId; });
+        if (!q) return;
+
+        var btn = document.createElement('button');
+        btn.className  = 'card-copy-btn';
+        btn.setAttribute('aria-label', '명언 복사');
+        btn.innerHTML  =
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+          '<rect x="9" y="9" width="13" height="13" rx="2"/>' +
+          '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>' +
+          '</svg> 복사';
+
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var text = '\u201C' + q.ko + '\u201D\n' +
+                     '"' + q.en + '"\n\n' +
+                     '\u2014 ' + q.author.split('(')[0].trim() + '\n\n' +
+                     '#꿈꾸는45도 #DailyQuote\nhttps://dream45.vercel.app';
+
+          navigator.clipboard.writeText(text).then(function () {
+            btn.classList.add('copied');
+            btn.innerHTML =
+              '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+              '<polyline points="20 6 9 17 4 12"/></svg> 복사됨!';
+            showToast('명언이 복사되었습니다!');
+            setTimeout(function () {
+              btn.classList.remove('copied');
+              btn.innerHTML =
+                '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+                '<rect x="9" y="9" width="13" height="13" rx="2"/>' +
+                '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>' +
+                '</svg> 복사';
+            }, 2000);
+          }).catch(function () {
+            showToast('복사에 실패했습니다.');
+          });
+        });
+
+        card.appendChild(btn);
+      })(cards[i]);
+    }
+  };
+})();

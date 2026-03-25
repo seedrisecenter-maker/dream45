@@ -126,6 +126,18 @@
             </p>
             <a href="#gallery" class="hero-cta" data-i18n="hero.cta">명언 탐험하기</a>
         </div>
+        <!-- Countdown Timer -->
+        <div class="hero-countdown" id="heroCountdown">
+            <p class="countdown-msg" id="countdownMsg">오늘 하루도 꿈을 꾸세요</p>
+            <div class="countdown-time" id="countdownTime">
+                <span class="countdown-unit"><span class="countdown-num" id="ctHour">00</span><small>시간</small></span>
+                <span class="countdown-sep">:</span>
+                <span class="countdown-unit"><span class="countdown-num" id="ctMin">00</span><small>분</small></span>
+                <span class="countdown-sep">:</span>
+                <span class="countdown-unit"><span class="countdown-num" id="ctSec">00</span><small>초</small></span>
+            </div>
+            <p class="countdown-until">자정까지 남은 시간</p>
+        </div>
         <div class="scroll-indicator">
             <span class="scroll-arrow"></span>
         </div>
@@ -1795,6 +1807,13 @@
         </div>
     </section>
 
+    <!-- ========== VISITOR COUNTER ========== -->
+    <div class="visitor-counter-wrap" id="visitorCounterWrap">
+        <p class="visitor-counter-text">
+            지금까지 <span class="visitor-count" id="visitorCount">0</span>명이 꿈을 꾸었습니다
+        </p>
+    </div>
+
     <!-- ========== FOOTER ========== -->
     <footer id="footer">
         <div class="footer-container">
@@ -1952,6 +1971,14 @@
 
     <!-- Toast notification for copy -->
     <div class="toast" id="toast">복사되었습니다!</div>
+
+    <!-- Random Quote Popup (scroll trigger) -->
+    <div class="scroll-quote-popup" id="scrollQuotePopup">
+        <button class="scroll-quote-close" id="scrollQuoteClose" aria-label="닫기">&times;</button>
+        <p class="scroll-quote-label">&#10022; 오늘의 한 마디</p>
+        <p class="scroll-quote-text" id="scrollQuoteText"></p>
+        <p class="scroll-quote-author" id="scrollQuoteAuthor"></p>
+    </div>
 
     <script src="js/main.js"></script>
     <script>

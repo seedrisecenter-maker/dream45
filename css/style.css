@@ -1757,7 +1757,8 @@ button {
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-.toast.show {
+.toast.show,
+.toast.active {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
     pointer-events: auto;
@@ -5090,4 +5091,222 @@ button {
     .yt-shorts-carousel {
         padding: 0 40px;
     }
+}
+
+/* ============================================================
+   FEATURE ADD-ONS: Countdown / Visitor Counter / Scroll Popup / Copy Button
+   ============================================================ */
+
+/* ---------- 1. Hero Countdown Timer ---------- */
+#hero {
+    flex-direction: column;
+}
+
+.hero-countdown {
+    margin-top: 32px;
+    text-align: center;
+    padding: 20px 28px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    display: inline-block;
+    min-width: 280px;
+}
+
+.countdown-msg {
+    font-size: 0.85rem;
+    color: var(--challenge-sub);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.countdown-msg.midnight {
+    font-size: 1rem;
+    color: #FFD97D;
+}
+
+.countdown-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 52px;
+}
+
+.countdown-num {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+
+.countdown-unit small {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 3px;
+    letter-spacing: 0.04em;
+}
+
+.countdown-sep {
+    font-size: 2rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 14px;
+    line-height: 1;
+}
+
+.countdown-until {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 10px;
+    letter-spacing: 0.06em;
+}
+
+/* Midnight star burst */
+@keyframes starBurst {
+    0%   { transform: scale(0) rotate(0deg); opacity: 0; }
+    50%  { transform: scale(1.4) rotate(180deg); opacity: 1; }
+    100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+.midnight-star {
+    display: inline-block;
+    animation: starBurst 0.6s ease forwards;
+    color: #FFD97D;
+    font-size: 1.4rem;
+    margin: 0 3px;
+}
+
+/* ---------- 2. Visitor Counter ---------- */
+.visitor-counter-wrap {
+    text-align: center;
+    padding: 36px 20px;
+    background: var(--bg-night);
+}
+
+.visitor-counter-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.04em;
+}
+
+.visitor-count {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--challenge-sub);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    transition: color 0.2s;
+}
+
+/* ---------- 3. Scroll Quote Popup ---------- */
+.scroll-quote-popup {
+    position: fixed;
+    bottom: 32px;
+    right: 28px;
+    width: 270px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 22px 18px;
+    box-shadow: 0 12px 40px rgba(27, 20, 100, 0.22);
+    z-index: 2500;
+    transform: translateX(calc(100% + 40px));
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+    pointer-events: none;
+}
+
+.scroll-quote-popup.visible {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.scroll-quote-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 1.2rem;
+    color: #999;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.scroll-quote-close:hover {
+    color: var(--dream-main);
+}
+
+.scroll-quote-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--dream-main);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.scroll-quote-text {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.scroll-quote-author {
+    font-size: 0.78rem;
+    color: #888;
+    font-style: italic;
+}
+
+@media (max-width: 480px) {
+    .scroll-quote-popup {
+        width: calc(100vw - 32px);
+        right: 16px;
+        bottom: 20px;
+    }
+}
+
+/* ---------- 4. Quote Card Copy Button ---------- */
+.card-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    padding: 5px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    letter-spacing: 0.04em;
+}
+
+.card-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.card-copy-btn.copied {
+    background: rgba(45, 106, 79, 0.6);
+    border-color: var(--hope-sub);
+    color: var(--hope-sub);
+}
+
+.card-copy-btn svg {
+    flex-shrink: 0;
 }
