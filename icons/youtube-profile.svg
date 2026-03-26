@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#1B1464"/>
+      <stop offset="100%" stop-color="#0D1B2A"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD97D"/>
+      <stop offset="100%" stop-color="#F4A261"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="400" cy="400" r="400" fill="url(#bg)"/>
+
+  <!-- Stars -->
+  <circle cx="150" cy="120" r="2" fill="#fff" opacity="0.8"/>
+  <circle cx="650" cy="180" r="2.5" fill="#fff" opacity="0.7"/>
+  <circle cx="100" cy="350" r="1.5" fill="#fff" opacity="0.6"/>
+  <circle cx="700" cy="400" r="2" fill="#fff" opacity="0.5"/>
+  <circle cx="200" cy="600" r="1.8" fill="#fff" opacity="0.7"/>
+  <circle cx="600" cy="650" r="2" fill="#fff" opacity="0.6"/>
+  <circle cx="350" cy="100" r="2.2" fill="#fff" opacity="0.5"/>
+  <circle cx="500" cy="130" r="1.5" fill="#fff" opacity="0.8"/>
+  <circle cx="680" cy="300" r="1.8" fill="#fff" opacity="0.6"/>
+  <circle cx="120" cy="500" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="550" cy="700" r="1.5" fill="#fff" opacity="0.5"/>
+  <circle cx="300" cy="680" r="2.5" fill="#FFD97D" opacity="0.4"/>
+  <circle cx="500" cy="550" r="1.8" fill="#FFD97D" opacity="0.3"/>
+
+  <!-- Compass / 45 degree element -->
+  <g transform="translate(400, 360)" filter="url(#glow)">
+    <!-- Circle border -->
+    <circle cx="0" cy="0" r="130" fill="none" stroke="url(#gold)" stroke-width="3" opacity="0.6"/>
+    <circle cx="0" cy="0" r="120" fill="none" stroke="url(#gold)" stroke-width="1" opacity="0.3"/>
+
+    <!-- 45 degree line -->
+    <line x1="0" y1="0" x2="85" y2="-85" stroke="url(#gold)" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="85" cy="-85" r="6" fill="#FFD97D"/>
+
+    <!-- Small compass marks -->
+    <line x1="0" y1="-125" x2="0" y2="-115" stroke="#FFD97D" stroke-width="2" opacity="0.6"/>
+    <line x1="125" y1="0" x2="115" y2="0" stroke="#FFD97D" stroke-width="2" opacity="0.6"/>
+    <line x1="0" y1="125" x2="0" y2="115" stroke="#FFD97D" stroke-width="2" opacity="0.6"/>
+    <line x1="-125" y1="0" x2="-115" y2="0" stroke="#FFD97D" stroke-width="2" opacity="0.6"/>
+
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="5" fill="#FFD97D"/>
+  </g>
+
+  <!-- 45° text -->
+  <text x="400" y="540" text-anchor="middle" font-family="Georgia, serif" font-size="72" font-weight="bold" fill="url(#gold)" filter="url(#glow)">45°</text>
+
+  <!-- Brand name -->
+  <text x="400" y="620" text-anchor="middle" font-family="'Noto Sans KR', sans-serif" font-size="36" font-weight="700" fill="#ffffff" opacity="0.9">꿈 꾸는 45도</text>
+
+  <!-- Tagline -->
+  <text x="400" y="665" text-anchor="middle" font-family="'Poppins', sans-serif" font-size="20" fill="#C5B4E3" letter-spacing="3">DREAMING 45°</text>
+</svg>

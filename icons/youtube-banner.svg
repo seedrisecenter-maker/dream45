@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2560 1440" width="2560" height="1440">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D1B2A"/>
+      <stop offset="40%" stop-color="#1B1464"/>
+      <stop offset="70%" stop-color="#0D1B2A"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD97D"/>
+      <stop offset="100%" stop-color="#F4A261"/>
+    </linearGradient>
+    <linearGradient id="horizon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="80%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="#E8590C" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- Night sky background -->
+  <rect width="2560" height="1440" fill="url(#sky)"/>
+  <rect width="2560" height="1440" fill="url(#horizon)"/>
+
+  <!-- Stars scattered across -->
+  <circle cx="120" cy="180" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="340" cy="90" r="1.5" fill="#fff" opacity="0.5"/>
+  <circle cx="560" cy="200" r="2.5" fill="#fff" opacity="0.8"/>
+  <circle cx="780" cy="120" r="1.8" fill="#fff" opacity="0.6"/>
+  <circle cx="950" cy="250" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="1150" cy="100" r="2.2" fill="#fff" opacity="0.5"/>
+  <circle cx="1400" cy="180" r="1.5" fill="#fff" opacity="0.8"/>
+  <circle cx="1600" cy="90" r="2.5" fill="#fff" opacity="0.6"/>
+  <circle cx="1800" cy="220" r="2" fill="#fff" opacity="0.7"/>
+  <circle cx="2000" cy="130" r="1.8" fill="#fff" opacity="0.5"/>
+  <circle cx="2200" cy="200" r="2.2" fill="#fff" opacity="0.8"/>
+  <circle cx="2400" cy="150" r="1.5" fill="#fff" opacity="0.6"/>
+  <circle cx="200" cy="400" r="1.8" fill="#fff" opacity="0.4"/>
+  <circle cx="450" cy="350" r="2" fill="#fff" opacity="0.5"/>
+  <circle cx="700" cy="420" r="1.5" fill="#fff" opacity="0.6"/>
+  <circle cx="1850" cy="380" r="2" fill="#fff" opacity="0.4"/>
+  <circle cx="2100" cy="430" r="1.8" fill="#fff" opacity="0.5"/>
+  <circle cx="2350" cy="350" r="2.2" fill="#fff" opacity="0.6"/>
+  <circle cx="300" cy="550" r="1.5" fill="#FFD97D" opacity="0.3"/>
+  <circle cx="2250" cy="520" r="2" fill="#FFD97D" opacity="0.3"/>
+
+  <!-- Bright star (feature) -->
+  <circle cx="1280" cy="300" r="4" fill="#FFD97D" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="1280" cy="300" r="20" fill="#FFD97D" opacity="0.1" filter="url(#softglow)"/>
+
+  <!-- Safe area center content (1546x423 visible on all devices) -->
+  <!-- Main title -->
+  <text x="1280" y="620" text-anchor="middle" font-family="Georgia, 'Noto Serif KR', serif" font-size="120" font-weight="bold" fill="url(#gold)" filter="url(#glow)">꿈 꾸는 45도</text>
+
+  <!-- English subtitle -->
+  <text x="1280" y="700" text-anchor="middle" font-family="'Poppins', 'Montserrat', sans-serif" font-size="48" fill="#C5B4E3" letter-spacing="8" opacity="0.9">DREAMING 45°</text>
+
+  <!-- Divider line -->
+  <line x1="1080" y1="740" x2="1480" y2="740" stroke="url(#gold)" stroke-width="1" opacity="0.5"/>
+
+  <!-- Tagline -->
+  <text x="1280" y="790" text-anchor="middle" font-family="'Noto Sans KR', sans-serif" font-size="32" fill="#ffffff" opacity="0.8">고개를 45도 들어 하늘을 바라보면, 꿈이 시작됩니다</text>
+
+  <!-- Language badges -->
+  <text x="1280" y="860" text-anchor="middle" font-family="'Poppins', sans-serif" font-size="22" fill="#C5B4E3" opacity="0.6" letter-spacing="4">한국어 · ENGLISH · 中文 · हिन्दी</text>
+
+  <!-- 45 degree compass element - left -->
+  <g transform="translate(680, 680)" opacity="0.25">
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#FFD97D" stroke-width="1.5"/>
+    <line x1="0" y1="0" x2="56" y2="-56" stroke="#FFD97D" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="56" cy="-56" r="4" fill="#FFD97D"/>
+    <circle cx="0" cy="0" r="3" fill="#FFD97D"/>
+  </g>
+
+  <!-- 45 degree compass element - right -->
+  <g transform="translate(1880, 680)" opacity="0.25">
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#FFD97D" stroke-width="1.5"/>
+    <line x1="0" y1="0" x2="56" y2="-56" stroke="#FFD97D" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="56" cy="-56" r="4" fill="#FFD97D"/>
+    <circle cx="0" cy="0" r="3" fill="#FFD97D"/>
+  </g>
+</svg>
