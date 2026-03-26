@@ -748,7 +748,7 @@ Reddit:    dream45.vercel.app?utm_source=reddit&utm_medium=social&utm_campaign=d
 **YouTube → 숏폼 플랫폼**
 - YouTube 롱폼에서 가장 반응 좋은 명언 구간 15초 클립 추출
 - TikTok/Instagram 릴스에 동일 클립 게재 (TikTok 워터마크 제거 후 Instagram 업로드)
-- 설명에 "전체 영상은 YouTube @dream45tv 에서" 안내
+- 설명에 "전체 영상은 YouTube @dream45do 에서" 안내
 
 **숏폼 → 텍스트 플랫폼**
 - TikTok/릴스 조회수 높은 콘텐츠의 명언을 Twitter 스레드로 확장

@@ -1,4 +1,4 @@
-# @이서련-t6q 채널 → 꿈 꾸는 45도 TV 변환 가이드
+# @dream45do 채널 → 꿈 꾸는 45도 TV 변환 가이드
 
 > 아래 내용을 YouTube Studio에서 복사-붙여넣기 하세요.
 > https://studio.youtube.com → 맞춤설정 → 기본 정보
@@ -14,7 +14,7 @@
 ## 2. 핸들 변경 (복사)
 
 ```
-@dream45tv
+@dream45do
 ```
 > 이미 사용 중이면: @dreaming45tv 또는 @dream45official
 
@@ -76,7 +76,7 @@ Timeless quotes in 4 languages — Korean · English · Chinese · Hindi.
 꿈 꾸는 45도 TV | Dreaming 45°
 고개를 45도 들어 하늘을 바라보는 순간, 꿈은 시작된다.
 
-🔔 구독: https://www.youtube.com/@이서련-t6q?sub_confirmation=1
+🔔 구독: https://www.youtube.com/@dream45do?sub_confirmation=1
 🌐 웹사이트: https://dream45.vercel.app
 
 #꿈꾸는45도 #Dream45 #명언 #Quotes #동기부여 #Motivation

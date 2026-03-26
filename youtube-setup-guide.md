@@ -4,7 +4,7 @@
 
 ## Step 1: 새 채널 만들기 (브랜드 계정)
 
-> 기존 `@이서련-t6q` 채널과 별도로, 프로젝트 전용 브랜드 채널을 만듭니다.
+> 기존 `@dream45do` 채널과 별도로, 프로젝트 전용 브랜드 채널을 만듭니다.
 
 1. https://www.youtube.com 에 로그인
 2. 우측 상단 프로필 아이콘 클릭
@@ -16,7 +16,7 @@
    ```
 6. 핸들 설정:
    ```
-   @dream45tv
+   @dream45do
    ```
    (이미 사용 중이면 `@dreaming45tv` 또는 `@dream45official`)
 7. **"만들기"** 클릭
@@ -33,7 +33,7 @@ https://studio.youtube.com
 | 설정 항목 | 입력 내용 |
 |----------|----------|
 | **이름** | 꿈 꾸는 45도 TV \| Dreaming 45° |
-| **핸들** | @dream45tv |
+| **핸들** | @dream45do |
 | **설명** | 아래 소개문 참조 |
 
 **채널 설명** (복사해서 붙여넣기):
@@ -114,7 +114,7 @@ YouTube Studio > 설정 > 채널:
 ```
 꿈 꾸는 45도 TV | Dreaming 45°
 
-구독: https://www.youtube.com/@dream45tv?sub_confirmation=1
+구독: https://www.youtube.com/@dream45do?sub_confirmation=1
 웹사이트: https://dream45.vercel.app
 
 #꿈꾸는45도 #Dream45 #명언 #Quotes
@@ -177,14 +177,13 @@ Website: https://dream45.vercel.app
 
 채널이 완성되면 알려주세요. 사이트의 구독 버튼 URL을 새 채널로 업데이트하겠습니다.
 
-현재 연결된 채널: `https://www.youtube.com/@이서련-t6q`
-새 채널 예정: `https://www.youtube.com/@dream45tv`
+현재 연결된 채널: `https://www.youtube.com/@dream45do`
 
 ---
 
 ## 빠른 시작 체크리스트
 
-- [ ] 브랜드 채널 생성 (@dream45tv)
+- [ ] 브랜드 채널 생성 (@dream45do)
 - [ ] 채널 설명 입력 (한국어)
 - [ ] 프로필 사진 업로드 (800x800)
 - [ ] 배너 이미지 업로드 (2560x1440)

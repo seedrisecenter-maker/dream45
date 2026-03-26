@@ -1886,7 +1886,7 @@ function showTotalDetail(layerId) {
 
       video.addEventListener('error', function() {
         // Fallback: open YouTube channel
-        window.open('https://www.youtube.com/@%EC%9D%B4%EC%84%9C%EB%A0%A8-t6q', '_blank');
+        window.open('https://www.youtube.com/@dream45do', '_blank');
       });
 
       player.innerHTML = '';
