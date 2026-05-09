@@ -3806,6 +3806,23 @@ button {
     border-color: #1a1a2e;
 }
 
+.life-view-tab[data-view="lifeschool"] {
+    background: linear-gradient(135deg, #1B1464, #6B3FA0);
+    color: #fff;
+    border-color: transparent;
+}
+
+.life-view-tab[data-view="lifeschool"]:not(.active) {
+    opacity: 0.6;
+}
+
+.life-view-tab[data-view="lifeschool"].active {
+    background: linear-gradient(135deg, #1B1464, #6B3FA0);
+    border-color: transparent;
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(27, 20, 100, 0.3);
+}
+
 .life-view {
     display: none;
 }
@@ -3950,6 +3967,266 @@ button {
 .formula-levels span {
     font-size: 0.9rem;
     color: #666;
+}
+
+/* ============================================================
+   14-B. Life School (인생학교) — 5원 × 8관문
+   ============================================================ */
+.ls-section {
+    margin-bottom: 48px;
+}
+
+.ls-heading {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+}
+
+/* 5원 동심원 */
+.ls-circles-wrap {
+    max-width: 500px;
+    margin: 0 auto 16px;
+}
+
+.ls-circles-svg {
+    width: 100%;
+    display: block;
+}
+
+.ls-circle-detail {
+    max-width: 500px;
+    margin: 12px auto 0;
+    min-height: 0;
+    transition: all 0.3s;
+}
+
+/* 8관문 */
+.ls-gates {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 660px;
+    margin: 0 auto;
+}
+
+.ls-gate-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1.5px solid rgba(0,0,0,0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.ls-gate-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gate-color, #1B1464);
+    opacity: 0.6;
+}
+
+.ls-gate-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.ls-gate-card.active {
+    border-color: var(--gate-color, #1B1464);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.ls-gate-hanja {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--gate-color, #1a1a2e);
+}
+
+.ls-gate-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.ls-gate-sub {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+.ls-gate-detail {
+    grid-column: 1 / -1;
+    background: rgba(0,0,0,0.02);
+    border-radius: 14px;
+    padding: 20px 24px;
+    animation: fadeInUp 0.3s;
+    border-left: 4px solid var(--gate-color, #1B1464);
+}
+
+/* 40칸 매트릭스 */
+.ls-matrix-desc {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.ls-matrix-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.ls-matrix {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 3px;
+    font-size: 0.75rem;
+}
+
+.ls-matrix th {
+    padding: 8px 6px;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.ls-matrix th.ls-col-header {
+    background: #1a1a2e;
+    min-width: 70px;
+}
+
+.ls-matrix th.ls-row-header {
+    background: #334155;
+    white-space: nowrap;
+    padding: 8px 10px;
+    text-align: left;
+}
+
+.ls-matrix td {
+    padding: 10px 6px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s;
+    color: #555;
+    line-height: 1.4;
+    border: 1px solid rgba(0,0,0,0.04);
+    font-size: 0.72rem;
+}
+
+.ls-matrix td:hover {
+    background: #f0edfa;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1;
+    position: relative;
+    color: #1B1464;
+    font-weight: 600;
+}
+
+.ls-matrix td.active {
+    background: #1B1464;
+    color: #fff;
+    font-weight: 600;
+}
+
+.ls-matrix-detail {
+    max-width: 700px;
+    margin: 16px auto 0;
+    min-height: 0;
+    transition: all 0.3s;
+}
+
+.ls-matrix-detail-card {
+    background: linear-gradient(135deg, #f8f7f5, #f5f0fa);
+    border-radius: 16px;
+    padding: 24px 28px;
+    animation: fadeInUp 0.3s;
+}
+
+.ls-matrix-detail-card h4 {
+    margin: 0 0 12px;
+    font-size: 1.1rem;
+    color: #1B1464;
+}
+
+.ls-matrix-detail-card .ls-twogates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.ls-twogates > div {
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.ls-gate-jinyo {
+    background: rgba(27,20,100,0.06);
+    border-left: 3px solid #1B1464;
+}
+
+.ls-gate-saengmyeol {
+    background: rgba(232,89,12,0.06);
+    border-left: 3px solid #E8590C;
+}
+
+/* 하단 */
+.ls-footer {
+    max-width: 660px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ls-formula {
+    background: linear-gradient(135deg, #1B1464, #6B3FA0);
+    color: #fff;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+}
+
+.ls-formula-line {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.ls-formula-sub {
+    display: block;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.ls-how {
+    background: rgba(0,0,0,0.03);
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+.ls-how strong {
+    color: #1a1a2e;
 }
 
 /* ============================================================
@@ -4303,6 +4580,38 @@ button {
 
     .five-step-detail {
         padding: 16px;
+    }
+
+    /* 인생학교 모바일 */
+    .ls-gates {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .ls-gate-hanja {
+        font-size: 1.4rem;
+    }
+
+    .ls-gate-title {
+        font-size: 0.8rem;
+    }
+
+    .ls-matrix td {
+        padding: 6px 3px;
+        font-size: 0.6rem;
+    }
+
+    .ls-matrix th {
+        font-size: 0.65rem;
+        padding: 6px 4px;
+    }
+
+    .ls-twogates {
+        grid-template-columns: 1fr !important;
+    }
+
+    .ls-formula-line {
+        font-size: 1.1rem;
     }
 }
 

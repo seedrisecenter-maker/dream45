@@ -508,6 +508,7 @@
                 <button class="life-view-tab active" data-view="jigwan" data-i18n="life.viewJigwan">止觀人生圖</button>
                 <button class="life-view-tab" data-view="five-steps" data-i18n="life.viewFive">다섯 걸음</button>
                 <button class="life-view-tab" data-view="total" data-i18n="life.viewTotal">총체도</button>
+                <button class="life-view-tab" data-view="lifeschool" data-i18n="life.viewSchool" style="background:linear-gradient(135deg,#1B1464,#6B3FA0);color:#fff;border-color:transparent">인생학교</button>
             </div>
 
             <!-- 止觀人生圖 (5단계 원환도) -->
@@ -560,6 +561,57 @@
                             <span data-i18n="life.formulaCommunity">공동체에서 → 변화</span>
                             <span data-i18n="life.formulaWorld">세계에서 → 평화</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 인생학교 (5원 × 8관문) -->
+            <div class="life-view" id="view-lifeschool">
+                <div class="life-subtitle">삶이 던지는 질문을 만날 준비 — 5개의 원, 8개의 관문, 40칸의 인생 지도</div>
+
+                <!-- 5원 동심원 다이어그램 -->
+                <div class="ls-section">
+                    <h3 class="ls-heading">관계의 5원 — 나는 누구와 함께 있는가</h3>
+                    <div class="ls-circles-wrap">
+                        <svg viewBox="0 0 500 500" class="ls-circles-svg" id="lsCirclesSvg">
+                            <!-- JS가 동심원 생성 -->
+                        </svg>
+                    </div>
+                    <div class="ls-circle-detail" id="lsCircleDetail"></div>
+                </div>
+
+                <!-- 8관문 흐름도 -->
+                <div class="ls-section">
+                    <h3 class="ls-heading">생의 8관문 — 삶이 나에게 무엇을 던지는가</h3>
+                    <div class="ls-gates" id="lsGates">
+                        <!-- JS가 8관문 카드 생성 -->
+                    </div>
+                </div>
+
+                <!-- 교차 매트릭스 -->
+                <div class="ls-section">
+                    <h3 class="ls-heading">5원 × 8관문 = 40칸</h3>
+                    <p class="ls-matrix-desc">인생의 모든 질문은 이 40칸 어딘가에 있다. 칸을 클릭하면 질문이 열린다.</p>
+                    <div class="ls-matrix-wrap">
+                        <table class="ls-matrix" id="lsMatrix">
+                            <!-- JS가 교차 테이블 생성 -->
+                        </table>
+                    </div>
+                    <div class="ls-matrix-detail" id="lsMatrixDetail"></div>
+                </div>
+
+                <!-- 하단 안내 -->
+                <div class="ls-footer">
+                    <div class="ls-formula">
+                        <span class="ls-formula-line">멈추고, 보고, 적는다.</span>
+                        <span class="ls-formula-sub">止觀으로 본다 × 二門으로 깊이 본다 × 포월로 녹인다</span>
+                    </div>
+                    <div class="ls-how">
+                        <p><strong>어떻게 쓰는가:</strong></p>
+                        <p>1. 지금 나에게 온 질문이 있다</p>
+                        <p>2. 어느 관문(동사)인가? → 행 찾기</p>
+                        <p>3. 어느 원(관계)인가? → 열 찾기</p>
+                        <p>4. 교차점에서 止觀으로 멈추고 본다</p>
                     </div>
                 </div>
             </div>

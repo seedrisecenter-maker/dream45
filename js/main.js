@@ -649,6 +649,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initJigwan();
   renderFiveSteps();
   initTotalDiagram();
+  initLifeSchool();
 });
 
 /* ============================================================
@@ -2128,3 +2129,263 @@ function showTotalDetail(layerId) {
     }
   };
 })();
+
+/* ============================================================
+   LIFE SCHOOL (인생학교) — 5원 × 8관문 인터랙티브
+   ============================================================ */
+
+// 5원 데이터
+var lsCircles = [
+  {id:'life',  hanja:'\u751F', label:'\uC0DD\uBA85', color:'#2D6A4F', radius:220, question:'\uC778\uAC04\uC740 \uC0DD\uBA85 \uC804\uCCB4 \uC548\uC5D0\uC11C \uBB34\uC5C7\uC778\uAC00?', desc:'\uC778\uAC04 \uB108\uBA38. \uC790\uC5F0, \uB3D9\uBB3C, \uC9C0\uAD6C. \uAE30\uD6C4\uC704\uAE30 \uC2DC\uB300\uC5D0 \u5927\u5B78\uC774 \uBA48\uCD98 \uACF3\uC744 \uB118\uB294\uB2E4.'},
+  {id:'world', hanja:'\u4E16', label:'\uC138\uACC4', color:'#8B4513', radius:175, question:'\uC138\uACC4\uAC00 \uB098\uB97C \uB9CC\uB4DC\uB294\uAC00, \uB0B4\uAC00 \uC138\uACC4\uB97C \uB9CC\uB4DC\uB294\uAC00?', desc:'\uC0AC\uD68C, \uAD6D\uAC00, \uBB38\uBA85, \uAD6C\uC870. \uB098\uB97C \uB458\uB7EC\uC2FC \uAC83, \uB0B4\uAC00 \uB9CC\uB4E4\uC9C0 \uC54A\uC558\uC9C0\uB9CC \uB098\uB97C \uB9CC\uB4DC\uB294 \uAC83.'},
+  {id:'us',    hanja:'\u5171', label:'\uC6B0\uB9AC', color:'#1a3a5c', radius:130, question:'\uC6B0\uB9AC\uB294 \uC11C\uB85C\uB97C \uC5B4\uB5BB\uAC8C \uB3CC\uBCF4\uACE0 \uC788\uB294\uAC00?', desc:'\uAC00\uC871, \uCE5C\uAD6C, \uB3D9\uB8CC, \uACF5\uB3D9\uCCB4. \uC120\uD0DD\uD55C \uAC83\uACFC \uC120\uD0DD\uD558\uC9C0 \uC54A\uC740 \uAC83.'},
+  {id:'you',   hanja:'\u6C5D', label:'\uB108',     color:'#6B3FA0', radius:85,  question:'\uB098\uB294 \uB108\uB97C \uB3C4\uAD6C\uAC00 \uC544\uB2CC \uBAA9\uC801\uC73C\uB85C \uB9CC\uB098\uACE0 \uC788\uB294\uAC00?', desc:'1:1 \uD0C0\uC790. \uB0AF\uC120 \uC0AC\uB78C. \uC120\uC9C0\uC2DD(\u5584\u77E5\u8B58). \uC811\uC18D\uC740 \uB9CE\uACE0 \uB9CC\uB0A8\uC740 \uC5C6\uB294 \uC2DC\uB300.'},
+  {id:'me',    hanja:'\u6211', label:'\uB098',     color:'#9B2226', radius:40,  question:'\uB098\uB294 \uB098\uB97C \uC54C\uACE0 \uC788\uB294\uAC00?', desc:'\uAC00\uC7A5 \uC548\uCABD. \uAC00\uC7A5 \uAC00\uAE4C\uC6B0\uBA70 \uAC00\uC7A5 \uBAA8\uB978\uB2E4. \u8EAB\u5B78\uC5D0\uC11C \uC2DC\uC791\uD55C\uB2E4.'}
+];
+
+// 8관문 데이터
+var lsGates = [
+  {id:'exist',  hanja:'\u5B58', title:'\uC788\uB2E4',   en:'Exist',  color:'#1B1464', desc:'\uC5EC\uAE30 \uC788\uB2E4. \uC874\uC7AC\uD55C\uB2E4.'},
+  {id:'feel',   hanja:'\u611F', title:'\uB290\uB08C\uB2E4',  en:'Feel',   color:'#6B3FA0', desc:'\uAC10\uC815\uC744 \uAC00\uC9C4\uB2E4. \uC544\uD504\uACE0 \uAE30\uC058\uB2E4.'},
+  {id:'want',   hanja:'\u6B32', title:'\uC6D0\uD55C\uB2E4',  en:'Want',   color:'#E8590C', desc:'\uBD80\uC871\uD558\uB2E4. \uAC08\uB9DD\uD55C\uB2E4.'},
+  {id:'meet',   hanja:'\u9047', title:'\uB9CC\uB09C\uB2E4',  en:'Meet',   color:'#2D6A4F', desc:'\uD0C0\uC778\uC744 \uB9CC\uB09C\uB2E4. \uBD80\uB52A\uD78C\uB2E4.'},
+  {id:'work',   hanja:'\u696D', title:'\uC77C\uD55C\uB2E4',  en:'Work',   color:'#8B4513', desc:'\uBB34\uC5B8\uAC00\uB97C \uD55C\uB2E4. \uBA39\uACE0\uC0B0\uB2E4.'},
+  {id:'lose',   hanja:'\u5931', title:'\uC783\uB294\uB2E4',  en:'Lose',   color:'#4A5568', desc:'\uB193\uCE5C\uB2E4. \uB5A0\uB098\uBCF4\uB0B8\uB2E4.'},
+  {id:'unknow', hanja:'\u60D1', title:'\uBAA8\uB978\uB2E4',  en:'Wonder', color:'#718096', desc:'\uD655\uC2E4\uD558\uC9C0 \uC54A\uB2E4. \uAE38\uC744 \uC783\uB294\uB2E4.'},
+  {id:'end',    hanja:'\u6B78', title:'\uB05D\uB09C\uB2E4',  en:'Return', color:'#1a1a2e', desc:'\uC8FD\uB294\uB2E4. \uB3CC\uC544\uAC04\uB2E4.'}
+];
+
+// 40칸 교차 데이터
+var lsMatrixData = {
+  exist:  ['\uB0B4\uAC00\n\uC788\uB2E4','\uB124\uAC00\n\uC788\uB2E4','\uC6B0\uB9AC\uAC00\n\uC788\uB2E4','\uC774 \uC0AC\uD68C\uAC00\n\uC788\uB2E4','\uC774 \uC0DD\uBA85\uC774\n\uC788\uB2E4'],
+  feel:   ['\uB0B4\uAC00\n\uB290\uB08C\uB2E4','\uB124\uAC00\n\uB290\uB08C\uB2E4','\uC6B0\uB9AC\uAC00\n\uB290\uB08C\uB2E4','\uC138\uACC4\uAC00\n\uB290\uB08C\uB2E4','\uC0DD\uBA85\uC774\n\uB290\uB08C\uB2E4'],
+  want:   ['\uB0B4\uAC00\n\uC6D0\uD55C\uB2E4','\uB124\uAC00\n\uC6D0\uD55C\uB2E4','\uC6B0\uB9AC\uAC00\n\uC6D0\uD55C\uB2E4','\uC138\uACC4\uAC00\n\uC6D0\uD55C\uB2E4','\uC0DD\uBA85\uC774\n\uC6D0\uD55C\uB2E4'],
+  meet:   ['\uB098\uB97C\n\uB9CC\uB09C\uB2E4','\uB108\uB97C\n\uB9CC\uB09C\uB2E4','\uC11C\uB85C\uB97C\n\uB9CC\uB09C\uB2E4','\uC138\uACC4\uB97C\n\uB9CC\uB09C\uB2E4','\uC0DD\uBA85\uC744\n\uB9CC\uB09C\uB2E4'],
+  work:   ['\uB0B4\uAC00\n\uC77C\uD55C\uB2E4','\uB124\uAC00\n\uC77C\uD55C\uB2E4','\uC6B0\uB9AC\uAC00\n\uC77C\uD55C\uB2E4','\uC138\uACC4\uAC00\n\uC77C\uD55C\uB2E4','\uC0DD\uBA85\uC774\n\uC77C\uD55C\uB2E4'],
+  lose:   ['\uB0B4\uAC00\n\uC783\uB294\uB2E4','\uB108\uB97C\n\uC783\uB294\uB2E4','\uC6B0\uB9AC\uB97C\n\uC783\uB294\uB2E4','\uC138\uACC4\uB97C\n\uC783\uB294\uB2E4','\uC0DD\uBA85\uC744\n\uC783\uB294\uB2E4'],
+  unknow: ['\uB098\uB97C\n\uBAA8\uB978\uB2E4','\uB108\uB97C\n\uBAA8\uB978\uB2E4','\uC6B0\uB9AC\uB97C\n\uBAA8\uB978\uB2E4','\uC138\uACC4\uB97C\n\uBAA8\uB978\uB2E4','\uC0DD\uBA85\uC744\n\uBAA8\uB978\uB2E4'],
+  end:    ['\uB0B4\uAC00\n\uB05D\uB09C\uB2E4','\uB124\uAC00\n\uB05D\uB09C\uB2E4','\uC6B0\uB9AC\uAC00\n\uB05D\uB09C\uB2E4','\uC138\uACC4\uAC00\n\uB05D\uB09C\uB2E4','\uC0DD\uBA85\uC774\n\uB05D\uB09C\uB2E4']
+};
+
+// 40칸 상세 (진여문/생멸문)
+var lsCellDetails = {
+  'exist-me':    {jinyo:'\uC874\uC7AC\uC758 \uBB3C\uC74C\uC740 \uC601\uC6D0\uD558\uB2E4', saeng:'\uB514\uC9C0\uD138 \uC874\uC7AC \u2014 \uC628\uB77C\uC778\uC758 \uB098\uB294 \uB098\uC778\uAC00?'},
+  'exist-you':   {jinyo:'\uB098 \uC544\uB2CC \uC874\uC7AC\uAC00 \uC788\uB2E4\uB294 \uACBD\uC774', saeng:'\uC811\uC18D\uC740 \uB9CE\uACE0 \uB9CC\uB0A8\uC740 \uC5C6\uB294 \uC2DC\uB300'},
+  'exist-us':    {jinyo:'\uD568\uAED8 \uC788\uB2E4\uB294 \uAC83\uC758 \uC758\uBBF8', saeng:'\uAC00\uC871\uC758 \uD615\uD0DC\uAC00 \uBCC0\uD558\uACE0 \uC788\uB2E4'},
+  'exist-world': {jinyo:'\uB0B4\uAC00 \uD0DC\uC5B4\uB098\uAE30 \uC804\uBD80\uD130 \uC788\uB358 \uAC83', saeng:'\uC815\uBCF4 \uACFC\uC789 \uC18D \uC874\uC7AC\uAC10\uC758 \uC704\uAE30'},
+  'exist-life':  {jinyo:'38\uC5B5 \uB144 \uC774\uC5B4\uC9C4 \uAC83', saeng:'\uAE30\uD6C4\uC704\uAE30 \u2014 \uC0DD\uBA85 \uC804\uCCB4\uC758 \uC874\uC7AC\uAC00 \uD754\uB4E4\uB9B0\uB2E4'},
+  'feel-me':     {jinyo:'\uC778\uAC04\uC740 \uB290\uB07C\uB294 \uC874\uC7AC\uB2E4', saeng:'\uC774 \uBD84\uB178\uB294 \uB0B4 \uAC83\uC778\uAC00, \uD53C\uB4DC\uAC00 \uB9CC\uB4E0 \uAC83\uC778\uAC00?'},
+  'feel-you':    {jinyo:'\uACF5\uAC10: \uB124 \uAC10\uC815\uC744 \uB290\uB07C\uB294 \uAC83', saeng:'\uACF5\uAC10 \uD53C\uB85C \u2014 \uB9E4\uC77C \uC804 \uC138\uACC4\uC758 \uACE0\uD1B5\uC744 \uBC1B\uB294\uB2E4'},
+  'feel-us':     {jinyo:'\uD568\uAED8 \uC6B8\uACE0 \uC6C3\uB294 \uAC83\uC758 \uC758\uBBF8', saeng:'\uAC00\uC871 \uBD84\uC704\uAE30 \u2014 \uB9D0 \uC5C6\uC774 \uC804\uC5FC\uB418\uB294 \uAC10\uC815'},
+  'feel-world':  {jinyo:'\uC2DC\uB300\uC758 \uAC10\uC815\uC740 \uBCC0\uD55C\uB2E4', saeng:'\uC54C\uACE0\uB9AC\uC998\uC774 \uC124\uACC4\uD558\uB294 \uAC10\uC815'},
+  'feel-life':   {jinyo:'\uB3D9\uBB3C\uB3C4 \uB290\uB08C\uB2E4 \u2014 \uACE0\uD1B5, \uACF5\uD3EC, \uC560\uCC29', saeng:'\uB290\uB08C\uC758 \uACBD\uACC4\uB294 \uC5B4\uB514\uC778\uAC00?'},
+  'want-me':     {jinyo:'\uC695\uB9DD\uC740 \uC778\uAC04\uC758 \uBCF8\uC9C8 \uC790\uCCB4\uB2E4', saeng:'SNS \uBB34\uD55C \uBE44\uAD50 \u2014 \uB048\uC5C6\uB294 \uACB0\uD54D \uC81C\uC870\uAE30'},
+  'want-you':    {jinyo:'\uBAA8\uBC29 \uC695\uB9DD: \uB124\uAC00 \uC6D0\uD558\uB2C8 \uB098\uB3C4', saeng:'\uC778\uD50C\uB8E8\uC5B8\uC11C \uBB38\uD654\uC758 \uC695\uB9DD \uC804\uC5FC'},
+  'want-us':     {jinyo:'\uAC00\uC871\uC758 \uAE30\uB300 = \uAC00\uC871\uC758 \uC695\uB9DD', saeng:'"\uB108\uB97C \uC704\uD574\uC11C" \uB4A4\uC758 \uC9C4\uC9DC \uC695\uB9DD'},
+  'want-world':  {jinyo:'\uC131\uC7A5 \uC774\uB370\uC62C\uB85C\uAE30: \uB354, \uB354, \uB354', saeng:'\uC989\uAC01 \uCDA9\uC871 \u2014 \uAE30\uB2E4\uB9BC\uC758 \uC18C\uBA78'},
+  'want-life':   {jinyo:'\uC0DD\uBA85\uC758 \uC695\uB9DD: \uC0B4\uACE0 \uC2F6\uB2E4, \uC774\uC5B4\uAC00\uACE0 \uC2F6\uB2E4', saeng:'\uC778\uAC04\uC758 \uC695\uB9DD\uACFC \uC0DD\uBA85\uC758 \uC695\uB9DD\uC740 \uAC19\uC740 \uBFCC\uB9AC\uC778\uAC00?'},
+  'meet-me':     {jinyo:'\uC608\uC0C1 \uBABB\uD55C \uB0B4 \uBC18\uC751\uC744 \uBC1C\uACAC\uD558\uB294 \uAC83', saeng:'\uAFC8\uC5D0\uC11C, \uC77C\uAE30\uC5D0\uC11C, \uC2E4\uC218\uC5D0\uC11C \uB098\uB97C \uB9CC\uB09C\uB2E4'},
+  'meet-you':    {jinyo:'\uBAA8\uB4E0 \uCC38\uB41C \uC0B6\uC740 \uB9CC\uB0A8\uC774\uB2E4 \u2014 \uBD80\uBC84', saeng:'\uCD08\uC5F0\uACB0 \uC18D \uACE0\uB9BD: \uD314\uB85C\uC6CC 1\uB9CC, \uCE5C\uAD6C 0'},
+  'meet-us':     {jinyo:'\uAC08\uB4F1\uC774 \uC9C4\uC9DC \uB9CC\uB0A8\uC758 \uC2DC\uC791', saeng:'\uB9E4\uC77C \uBCF4\uB294 \uAC00\uC871\uC744 "\uC9C4\uC9DC" \uB9CC\uB098\uB294 \uC21C\uAC04'},
+  'meet-world':  {jinyo:'\uC5ED\uC0AC \uC18D \uC778\uBB3C\uACFC\uC758 \uB9CC\uB0A8', saeng:'\uC54C\uACE0\uB9AC\uC998 \uCD94\uCC9C \u2014 \uBE44\uC2B7\uD55C \uC0AC\uB78C\uB9CC \uB9CC\uB098\uAC8C \uB418\uB294 \uAD6C\uC870'},
+  'meet-life':   {jinyo:'\uB3D9\uBB3C\uC758 \uB208\uACFC \uB9C8\uC8FC\uCE58\uB294 \uAC83', saeng:'\uC22B\uC5D0\uC11C \uC778\uAC04\uC774 \uC544\uB2CC \uAC83\uACFC \uD568\uAED8 \uC788\uB294 \uAC83'},
+  'work-me':     {jinyo:'\uC778\uAC04\uC740 \uC77C\uD558\uB294 \uC874\uC7AC\uB2E4', saeng:'AI \uB300\uCCB4 \u2014 \uB0B4 \uC77C\uC774 \uC0AC\uB77C\uC9C0\uBA74?'},
+  'work-you':    {jinyo:'\uB204\uAD70\uAC00\uC758 \uB178\uB3D9 \uC704\uC5D0 \uB0B4 \uD3B8\uC548\uD568\uC774 \uC788\uB2E4', saeng:'\uAE31 \uC774\uCF54\uB178\uBBF8: \uC18C\uC18D \uC5C6\uB294 \uC77C'},
+  'work-us':     {jinyo:'\uB3CC\uBD04\uC774\uB77C\uB294 \uBCF4\uC774\uC9C0 \uC54A\uB294 \uB178\uB3D9', saeng:'\uAC00\uC871 \uC548\uC5D0\uC11C \uC77C\uC758 \uBD84\uBC30\uB294 \uACF5\uC815\uD55C\uAC00?'},
+  'work-world':  {jinyo:'\uC77C\uC744 \uD1B5\uD574 \uC138\uACC4\uC640 \uAD00\uACC4 \uB9FA\uB294\uB2E4', saeng:'\uBC88\uC544\uC6C3 \uC815\uC0C1\uD654 \u2014 \uBC14\uC058\uC9C0 \uC54A\uC73C\uBA74 \uBD88\uC548\uD55C \uC2DC\uB300'},
+  'work-life':   {jinyo:'\uBC8C\uC774 \uAF43\uAC00\uB8E8\uB97C \uC62E\uAE34\uB2E4 \u2014 \uC774\uAC83\uC740 \uC77C\uC778\uAC00?', saeng:'\uC778\uAC04\uC758 \uC77C\uC740 \uC0DD\uD0DC\uACC4\uC5D0 \uBB34\uC5C7\uC744 \uD558\uACE0 \uC788\uB294\uAC00?'},
+  'lose-me':     {jinyo:'\uBB34\uC0C1(\u7121\u5E38) \u2014 \uBAA8\uB4E0 \uAC83\uC740 \uBCC0\uD55C\uB2E4', saeng:'\uC989\uAC01\uC801 \uCE58\uC720 \uAE30\uB300: "\uBE68\uB9AC \uADF9\uBCF5\uD574"'},
+  'lose-you':    {jinyo:'\uC0AC\uB791\uD558\uB294 \uD55C \uC0AC\uB78C\uC758 \uC8FD\uC74C', saeng:'\uB514\uC9C0\uD138 \uC794\uD574: \uC8FD\uC740 \uC0AC\uB78C\uC758 SNS \uACC4\uC815'},
+  'lose-us':     {jinyo:'\uBE48\uC790\uB9AC\uAC00 \uB0A8\uAE34 \uD615\uD0DC', saeng:'\uC138\uB300 \uB2E8\uC808: \uBD80\uBAA8\uC640 \uC790\uB140\uAC00 \uC11C\uB85C\uB97C \uC783\uB294 \uAC83'},
+  'lose-world':  {jinyo:'\uBB38\uD654\uC758 \uC18C\uBA78 \u2014 \uC5B8\uC5B4, \uC804\uD1B5, \uAE30\uC5B5', saeng:'\uACE0\uD5A5\uC744 \uC783\uB294 \uAC83 \u2014 \uB09C\uBBFC, \uC774\uC8FC, \uC7AC\uAC1C\uBC1C'},
+  'lose-life':   {jinyo:'\uC885\uC758 \uBA78\uC885 \u2014 \uB418\uB3CC\uB9B4 \uC218 \uC5C6\uB2E4', saeng:'\uACC4\uC808\uC774 \uC0AC\uB77C\uC9C4\uB2E4 \u2014 \uBD04\uC774 \uC9E7\uC544\uC9C4\uB2E4'},
+  'unknow-me':   {jinyo:'\uC18C\uD06C\uB77C\uD14C\uC2A4: \uB098\uB294 \uB0B4\uAC00 \uBAA8\uB978\uB2E4\uB294 \uAC83\uC744 \uC548\uB2E4', saeng:'\uC815\uBCF4 \uACFC\uC789 \u2014 \uAC80\uC0C9\uD558\uBA74 \uB2E4 \uB098\uC624\uB294\uB370 \uC774\uD574\uB294 \uC5C6\uB2E4'},
+  'unknow-you':  {jinyo:'10\uB144 \uC606\uC5D0 \uC788\uC5C8\uB294\uB370 \uBAA8\uB974\uB294 \uAC83', saeng:'\uC548\uB2E4\uACE0 \uCC29\uAC01\uD558\uB294 \uAC83\uC758 \uC704\uD5D8'},
+  'unknow-us':   {jinyo:'\uAC00\uC871\uC778\uB370 \uC11C\uB85C \uBAA8\uB978\uB2E4', saeng:'\uD3EC\uC2A4\uD2B8 \uC9C4\uC2E4: \uBB34\uC5C7\uC774 \uC0AC\uC2E4\uC778\uC9C0 \uBAA8\uB978\uB2E4'},
+  'unknow-world':{jinyo:'\uC804\uBB38\uAC00\uB3C4 \uBAA8\uB978\uB2E4 \u2014 \uADF8\uB7F0\uB370 \uBAA8\uB978\uB2E4\uACE0 \uB9D0 \uBABB \uD55C\uB2E4', saeng:'\uC120\uD0DD\uC9C0 \uACFC\uB2E4: \uB108\uBB34 \uB9CE\uC544\uC11C \uACE0\uB974\uC9C0 \uBABB\uD55C\uB2E4'},
+  'unknow-life': {jinyo:'\uC758\uC2DD\uC774\uB780 \uBB34\uC5C7\uC778\uC9C0 \uBAA8\uB978\uB2E4', saeng:'\uC778\uAC04\uC774 \uBAA8\uB974\uB294 \uAC83\uC758 \uD06C\uAE30\uB97C \uBAA8\uB978\uB2E4'},
+  'end-me':      {jinyo:'\uC0DD\uC0AC\uC77C\uC5EC(\u751F\u6B7B\u4E00\u5982) \u2014 \uC0B6\uACFC \uC8FD\uC74C\uC740 \uB458\uC774 \uC544\uB2C8\uB2E4', saeng:'\uC8FD\uC74C\uC758 \uC740\uD3D0 \u2014 \uBCD1\uC6D0\uC5D0\uC11C \uC8FD\uACE0 \uC7A5\uB840\uC2DD\uC7A5\uC5D0\uC11C \uBCF4\uB0B4\uACE0'},
+  'end-you':     {jinyo:'\uC9C0\uAE08 \uC606\uC5D0 \uC788\uB294 \uC0AC\uB78C\uC740 \uC601\uC6D0\uD558\uC9C0 \uC54A\uB2E4', saeng:'AI \uBCF5\uC81C \u2014 \uC8FD\uC740 \uC0AC\uB78C\uC758 \uBAA9\uC18C\uB9AC\uB97C \uC7AC\uD604\uD55C\uB2E4'},
+  'end-us':      {jinyo:'\uD55C \uC138\uB300\uC758 \uB05D \u2014 \uB2E4\uC74C \uC138\uB300\uC758 \uC2DC\uC791', saeng:'\uACE0\uB3C5\uC0AC \u2014 \uB05D\uC744 \uC544\uBB34\uB3C4 \uBAA8\uB974\uB294 \uAC83'},
+  'end-world':   {jinyo:'\uBAA8\uB4E0 \uC81C\uAD6D\uC740 \uB05D\uB0AC\uB2E4', saeng:'\uC9C0\uC18D \uAC00\uB2A5\uC774\uB77C\uB294 \uB9D0 \uC790\uCCB4\uAC00 \uB05D\uC744 \uC804\uC81C\uD55C\uB2E4'},
+  'end-life':    {jinyo:'\uD0DC\uC591\uB3C4 \uB05D\uB09C\uB2E4. \uADF8\uB798\uB3C4 \uC528\uC557\uC740 \uC2F9\uD2E0\uB2E4.', saeng:'\uB514\uC9C0\uD138 \uC601\uC0DD\uC758 \uD658\uC0C1 \u2014 \uB370\uC774\uD130\uB294 \uB0A8\uC9C0\uB9CC \uADF8\uAC83\uC774 "\uB098"\uC778\uAC00?'}
+};
+
+var lsCircleNames = ['me','you','us','world','life'];
+
+function initLifeSchool() {
+  initLsCircles();
+  initLsGates();
+  initLsMatrix();
+}
+
+function initLsCircles() {
+  var svg = document.getElementById('lsCirclesSvg');
+  if (!svg) return;
+
+  var ns = 'http://www.w3.org/2000/svg';
+  var cx = 250, cy = 250;
+
+  lsCircles.forEach(function(c) {
+    // Ring
+    var circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', cy);
+    circle.setAttribute('r', c.radius);
+    circle.setAttribute('fill', c.color);
+    circle.setAttribute('fill-opacity', '0.07');
+    circle.setAttribute('stroke', c.color);
+    circle.setAttribute('stroke-width', '1.5');
+    circle.setAttribute('stroke-opacity', '0.5');
+    circle.setAttribute('style', 'cursor:pointer;transition:fill-opacity 0.3s');
+    circle.dataset.circle = c.id;
+    svg.appendChild(circle);
+
+    // Label
+    var text = document.createElementNS(ns, 'text');
+    text.setAttribute('x', cx);
+    text.setAttribute('y', cy - c.radius + 18);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', c.color);
+    text.setAttribute('font-size', c.radius < 60 ? '14' : '13');
+    text.setAttribute('font-weight', '600');
+    text.setAttribute('style', 'pointer-events:none');
+    text.textContent = c.hanja + ' ' + c.label;
+    svg.appendChild(text);
+
+    // Hover/click
+    circle.addEventListener('mouseenter', function() {
+      circle.setAttribute('fill-opacity', '0.18');
+    });
+    circle.addEventListener('mouseleave', function() {
+      circle.setAttribute('fill-opacity', '0.07');
+    });
+    circle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var detail = document.getElementById('lsCircleDetail');
+      if (!detail) return;
+      detail.innerHTML =
+        '<div style="border-left:4px solid ' + c.color + ';padding:1rem 1.2rem;background:rgba(0,0,0,0.03);border-radius:0 8px 8px 0;animation:fadeInUp 0.3s">' +
+          '<h4 style="color:' + c.color + ';margin:0 0 0.5rem;font-size:1.1rem">' + c.hanja + ' ' + c.label + '</h4>' +
+          '<p style="color:#444;margin:0 0 0.5rem;line-height:1.6;font-size:0.9rem">' + c.desc + '</p>' +
+          '<p style="color:#888;margin:0;font-size:0.85rem;font-style:italic">\uD575\uC2EC \uC9C8\uBB38: ' + c.question + '</p>' +
+        '</div>';
+    });
+  });
+}
+
+function initLsGates() {
+  var container = document.getElementById('lsGates');
+  if (!container) return;
+
+  container.innerHTML = lsGates.map(function(g) {
+    return '<div class="ls-gate-card" data-gate="' + g.id + '" style="--gate-color:' + g.color + '">' +
+      '<div class="ls-gate-hanja">' + g.hanja + '</div>' +
+      '<div class="ls-gate-title">' + g.title + '</div>' +
+      '<div class="ls-gate-sub">' + g.en + '</div>' +
+    '</div>';
+  }).join('');
+
+  container.addEventListener('click', function(e) {
+    var card = e.target.closest('.ls-gate-card');
+    if (!card) return;
+
+    var gateId = card.dataset.gate;
+    var gate = lsGates.find(function(g) { return g.id === gateId; });
+    if (!gate) return;
+
+    // Toggle active
+    var wasActive = card.classList.contains('active');
+    container.querySelectorAll('.ls-gate-card').forEach(function(c) { c.classList.remove('active'); });
+    var existingDetail = container.querySelector('.ls-gate-detail');
+    if (existingDetail) existingDetail.remove();
+
+    if (wasActive) return;
+
+    card.classList.add('active');
+
+    var detailEl = document.createElement('div');
+    detailEl.className = 'ls-gate-detail';
+    detailEl.style.cssText = '--gate-color:' + gate.color;
+    detailEl.innerHTML =
+      '<h4 style="color:' + gate.color + ';margin:0 0 0.5rem;font-size:1.1rem">' + gate.hanja + ' ' + gate.title + ' (' + gate.en + ')</h4>' +
+      '<p style="color:#555;margin:0;line-height:1.6">' + gate.desc + '</p>';
+
+    // Insert after the clicked card's row
+    var cards = Array.from(container.querySelectorAll('.ls-gate-card'));
+    var idx = cards.indexOf(card);
+    var rowEnd = Math.min(Math.ceil((idx + 1) / 4) * 4, cards.length);
+    var afterEl = cards[rowEnd - 1] || card;
+    afterEl.after(detailEl);
+  });
+}
+
+function initLsMatrix() {
+  var table = document.getElementById('lsMatrix');
+  if (!table) return;
+
+  var circleLabels = ['\u6211 \uB098','\u6C5D \uB108','\u5171 \uC6B0\uB9AC','\u4E16 \uC138\uACC4','\u751F \uC0DD\uBA85'];
+  var circleColors = ['#9B2226','#6B3FA0','#1a3a5c','#8B4513','#2D6A4F'];
+
+  // Header
+  var thead = '<thead><tr><th style="background:transparent"></th>';
+  circleLabels.forEach(function(label, i) {
+    thead += '<th class="ls-col-header" style="background:' + circleColors[i] + '">' + label + '</th>';
+  });
+  thead += '</tr></thead>';
+
+  // Body
+  var tbody = '<tbody>';
+  lsGates.forEach(function(gate) {
+    tbody += '<tr>';
+    tbody += '<th class="ls-row-header" style="background:' + gate.color + '">' + gate.hanja + ' ' + gate.title + '</th>';
+    var cells = lsMatrixData[gate.id];
+    lsCircleNames.forEach(function(circleName, ci) {
+      var cellKey = gate.id + '-' + circleName;
+      tbody += '<td data-cell="' + cellKey + '" style="white-space:pre-line">' + cells[ci] + '</td>';
+    });
+    tbody += '</tr>';
+  });
+  tbody += '</tbody>';
+
+  table.innerHTML = thead + tbody;
+
+  // Click handler
+  table.addEventListener('click', function(e) {
+    var td = e.target.closest('td[data-cell]');
+    if (!td) return;
+
+    var cellKey = td.dataset.cell;
+    var info = lsCellDetails[cellKey];
+    if (!info) return;
+
+    // Toggle
+    var allTds = table.querySelectorAll('td');
+    allTds.forEach(function(t) { t.classList.remove('active'); });
+    td.classList.add('active');
+
+    var parts = cellKey.split('-');
+    var gate = lsGates.find(function(g) { return g.id === parts[0]; });
+    var circle = lsCircles.find(function(c) { return c.id === parts[1]; });
+    var gateName = gate ? gate.hanja + ' ' + gate.title : '';
+    var circleName = circle ? circle.hanja + ' ' + circle.label : '';
+
+    var detail = document.getElementById('lsMatrixDetail');
+    if (!detail) return;
+
+    detail.innerHTML =
+      '<div class="ls-matrix-detail-card">' +
+        '<h4>' + gateName + ' \u00D7 ' + circleName + '</h4>' +
+        '<div class="ls-twogates">' +
+          '<div class="ls-gate-jinyo">' +
+            '<strong style="color:#1B1464;font-size:0.8rem;display:block;margin-bottom:6px">\u771E\u5982\u9580 \u2014 \uC2DC\uAC04\uC744 \uB118\uB294 \uAC83</strong>' +
+            '<span>' + info.jinyo + '</span>' +
+          '</div>' +
+          '<div class="ls-gate-saengmyeol">' +
+            '<strong style="color:#E8590C;font-size:0.8rem;display:block;margin-bottom:6px">\u751F\u6EC5\u9580 \u2014 \uC774 \uC2DC\uB300\uB9CC\uC758 \uAC83</strong>' +
+            '<span>' + info.saeng + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  });
+}
