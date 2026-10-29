@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dream45.vercel.app/profile/sitemap.xml
