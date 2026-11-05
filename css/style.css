@@ -5619,3 +5619,8 @@ button {
 .card-copy-btn svg {
     flex-shrink: 0;
 }
+
+/* profile-link (added by jigwan-web) */
+.hero-maker { display: block; width: fit-content; margin: 1rem auto 0; font-size: .88rem; letter-spacing: .02em;
+  color: rgba(248, 244, 232, 0.72); border-bottom: 1px solid rgba(248, 244, 232, 0.28); padding-bottom: 2px; }
+.hero-maker:hover { color: #FFD97D; border-bottom-color: #FFD97D; }

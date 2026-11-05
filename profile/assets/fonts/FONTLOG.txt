@@ -1,0 +1,44 @@
+FONTLOG for Jigwanseoga
+=======================
+
+This file provides detailed information on the Jigwanseoga font.
+
+
+Basic Font Information
+----------------------
+
+Jigwanseoga (지관서가 / 止觀書架) is a display font designed for the
+Jigwanseoga brand identity.
+
+Design characteristics:
+  - English: Geometric sans-serif, medium weight, clean letterforms
+  - Korean: Bold geometric gothic, square proportions, uniform thick strokes
+  - Symbol: Abstract bookshelf mark (止觀書架 = Contemplation Bookshelf)
+
+Coverage:
+  - Latin uppercase A-Z (lowercase maps to uppercase)
+  - Digits 0-9
+  - Basic punctuation: . , - ! ? : / ( )
+  - Full Unicode Hangul Syllables block (U+AC00-U+D7A3, 11,172 characters)
+  - Brand symbol mark (U+F000, Private Use Area)
+
+
+ChangeLog
+---------
+
+2026-08-08 (v1.0)
+  - Initial release
+  - 11,172 Hangul syllables via jamo composition engine
+  - 26 Latin uppercase + 10 digits + 10 punctuation marks
+  - Brand symbol glyph
+  - SIL Open Font License 1.1
+
+
+Acknowledgements
+----------------
+
+Design based on Jigwanseoga BI renewal document (2025.2).
+Font generated with Python fontTools library.
+
+For information about the Jigwanseoga project:
+  Email: seedrisecenter@gmail.com
